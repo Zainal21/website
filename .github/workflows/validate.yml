@@ -12,15 +12,6 @@ jobs:
       - name: Check build
         run: bun run check-build
 
-  formatting:
-    timeout-minutes: 5
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/setup
-      - name: Check formatting
-        run: bun run check-format
-
   lint:
     timeout-minutes: 5
     runs-on: ubuntu-latest

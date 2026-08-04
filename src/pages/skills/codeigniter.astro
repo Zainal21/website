@@ -1,0 +1,39 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I have hands-on experience building web and mobile-backed systems with CodeIgniter for logistics and government projects.'
+
+const delivered = [
+  'Built the <a href="/work/cikajogja">JTLExpress Cargosistem</a> and <a href="/work/cikajogja">DKExpress Cargosistem</a> logistics platforms.',
+  'Developed the <a href="/work/cikajogja">Sistem Informasi Tata Ruang Magelang</a> and the Satpol PP information system (Sindega Jawi).',
+  'Contributed to early-stage web applications at <a href="/work/kadang-koding">Kadang Koding Indonesia</a>, including database design and full-stack implementation.',
+]
+
+const why =
+  'Working with CodeIgniter taught me to build efficient applications on a lean framework — strong fundamentals in MVC architecture, database mapping, and shipping under tight project timelines.'
+
+const projects = [
+  { label: 'Cikajogja', href: '/work/cikajogja' },
+  { label: 'Kadang Koding Indonesia', href: '/work/kadang-koding' },
+]
+---
+
+<Layout
+  title="CodeIgniter | Muhamad Zainal Arifin"
+  description="CodeIgniter experience across logistics, government, and web applications."
+>
+  <BaseLayout>
+    <SkillPage
+      title="CodeIgniter"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

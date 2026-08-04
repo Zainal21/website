@@ -1,0 +1,39 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I build cross-platform mobile applications with Flutter from a single codebase.'
+
+const delivered = [
+  'Listed as a top skill in my profile, used for mobile application development across client projects.',
+  'Contributed Flutter-based mobile work at <a href="/work/linkpos">Linkpos Digital Kreatif</a> as a Mobile Engineer.',
+  'Applied Flutter alongside backend and DevOps work to deliver end-to-end mobile solutions.',
+]
+
+const why =
+  'Flutter lets me ship iOS and Android from one Dart codebase with a consistent, high-quality UI — ideal for fast delivery and long-term maintenance.'
+
+const projects = [
+  { label: 'Linkpos Digital Kreatif', href: '/work/linkpos' },
+  { label: 'Katalis Kreasi Teknologi', href: '/work/katalis' },
+]
+---
+
+<Layout
+  title="Flutter | Muhamad Zainal Arifin"
+  description="Flutter experience building cross-platform mobile applications."
+>
+  <BaseLayout>
+    <SkillPage
+      title="Flutter"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

@@ -1,0 +1,117 @@
+---
+import '../styles/global.css'
+import logoImage from '~/assets/images/logo.svg?url'
+
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+  ogType?: string
+  lang?: 'en'
+}
+
+const {
+  title = 'Muhamad Zainal Arifin: Software Engineer',
+  description = 'Muhamad Zainal Arifin is a Software Engineer (Backend Specialist) & DevOps Engineer based in Surakarta, Central Java, Indonesia.',
+  image = 'https://muhamadzain.me/logo.svg',
+  ogType = 'profile',
+  lang = 'en',
+} = Astro.props
+
+const currentPath = Astro.url.pathname
+const canonicalURL = new URL(currentPath, Astro.site)
+const siteUrl = Astro.site?.toString() || 'https://muhamadzain.me'
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Muhamad Zainal Arifin',
+    url: siteUrl,
+    jobTitle: 'Software Engineer',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Muhamad Zainal Arifin',
+    url: siteUrl,
+    inLanguage: lang,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    url: canonicalURL.toString(),
+    description,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Muhamad Zainal Arifin',
+      url: siteUrl,
+    },
+  },
+]
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head prefix="og: https://ogp.me/ns#">
+    <!-- Theme and animation initialization - runs before page renders -->
+    <script is:inline>
+      ;(function () {
+        document.documentElement.classList.add('dark')
+
+        // Skip animations if user has already visited this session
+        if (sessionStorage.getItem('visited')) {
+          document.documentElement.classList.add('animation-done')
+        } else {
+          sessionStorage.setItem('visited', 'true')
+        }
+      })()
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <!-- Preload critical image -->
+    <link rel="preload" as="image" type="image/svg+xml" href={logoImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="en_US" />
+
+    {
+      ogType === 'profile' && (
+        <>
+          <meta property="profile:first_name" content="Muhamad" />
+          <meta property="profile:last_name" content="Zainal Arifin" />
+          <meta property="profile:username" content="zainal21" />
+        </>
+      )
+    }
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body
+    class="font-sans antialiased bg-warm-50 dark:bg-dark-bg text-warm-900 dark:text-warm-100"
+  >
+    <slot />
+  </body>
+</html>

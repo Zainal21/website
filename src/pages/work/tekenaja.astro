@@ -1,0 +1,169 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+
+const pageTitle = 'TekenAja!'
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: Astro.site?.toString() || 'https://muhamadzain.me',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Work',
+      item: new URL('/work', Astro.site).toString(),
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: pageTitle,
+      item: canonicalURL.toString(),
+    },
+  ],
+}
+
+const keyProjects = [
+  {
+    name: 'Kadin ID Membership System',
+    description: 'Membership system for the Indonesian Chamber of Commerce.',
+  },
+  {
+    name: 'Biometric Baintelkam Polri Public/Resident Search Service',
+    description:
+      'Public and resident search service with biometric verification.',
+  },
+  {
+    name: 'Kejaksaan Agung (Kejagung) Public/Resident Search Service',
+    description:
+      'Public and resident search service for the Attorney General’s Office.',
+  },
+  {
+    name: 'Sedo Control Panel & Dashboard',
+    description: 'Control panel and dashboard for the TekenAja eKYC service.',
+  },
+  {
+    name: 'Various other eKYC and identity management systems',
+    description: 'Additional eKYC and identity management projects.',
+  },
+]
+---
+
+<Layout
+  title="TekenAja! - Work | Muhamad Zainal Arifin"
+  description="Software Developer at TekenAja!: SaaS eKYC platform with biometric verification and identity management."
+>
+  <BaseLayout>
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <article class="mt-12">
+      <a
+        href="/work"
+        class="inline-flex items-center gap-1 text-sm text-warm-500 dark:text-warm-400 hover:text-warm-700 dark:hover:text-warm-300 mb-6"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-4 h-4"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+        </svg>
+        Back to Work
+      </a>
+
+      <header class="mb-12">
+        <div class="flex items-start gap-5">
+          <img
+            src="/company/tekenaja.jpg"
+            alt="TekenAja! logo"
+            class="h-16 w-16 object-contain rounded-2xl shadow-sm shrink-0"
+          />
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-accent-600 dark:text-accent-400"
+            >
+              Software Developer – Pando Team · Jan 2023 – Mar 2024
+            </p>
+            <h1
+              class="mt-2 text-3xl sm:text-4xl font-display font-bold text-warm-900 dark:text-warm-100"
+            >
+              TekenAja!
+            </h1>
+            <p class="mt-2 text-warm-600 dark:text-warm-400">
+              Jakarta Selatan, Indonesia
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <div class="prose lg:prose-lg max-w-none">
+        <p>
+          Served as a key member of the outsourcing team for OXY Creative,
+          contributing to the development of a cutting-edge SaaS eKYC
+          (electronic Know Your Customer) platform focused on biometric
+          verification and identity management.
+        </p>
+
+        <div
+          class="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg"
+        >
+          <p class="text-sm text-amber-800 dark:text-amber-200 m-0">
+            <strong>Note:</strong> Role ended due to the company going bankrupt (laid
+            off).
+          </p>
+        </div>
+
+        <h2>Highlights</h2>
+        <ul>
+          <li>
+            Collaborated closely with Project Managers to design and develop
+            high-quality software solutions focused on biometric verification
+            and identity management.
+          </li>
+          <li>
+            Performed regular maintenance, troubleshooting, and successfully
+            integrated new features to enhance the eKYC application's
+            functionality and user experience.
+          </li>
+        </ul>
+
+        <h2>Key Projects</h2>
+        <ul>
+          {
+            keyProjects.map((project) => (
+              <li>
+                <strong>{project.name}:</strong> {project.description}
+              </li>
+            ))
+          }
+        </ul>
+
+        <h2>Technology Stack</h2>
+        <ul>
+          <li>Express.js</li>
+          <li>React.js</li>
+          <li>Biometric Verification</li>
+          <li>Identity Management</li>
+          <li>REST APIs</li>
+        </ul>
+      </div>
+    </article>
+
+    <Footer />
+  </BaseLayout>
+</Layout>

@@ -1,0 +1,95 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import Introduction from '~/components/Introduction.astro'
+import GithubIcon from '~/icons/GithubIcon.astro'
+---
+
+<Layout title="What I Built | Muhamad Zainal Arifin">
+  <BaseLayout>
+    <Introduction />
+
+    <article class="prose lg:prose-lg mt-12">
+      <h1>What I Built</h1>
+      <p>
+        This page highlights projects I've built and contributed to. For
+        professional client work, check out my <a href="/work">Work</a> page.
+      </p>
+
+      <h2>Selected Client & Personal Projects</h2>
+      <ul>
+        <li>
+          <strong>MK Jewelry System (ERP) &amp; POS</strong> – End-to-end ERP and
+          point-of-sale system for a jewelry business, built with a scalable database
+          architecture.
+        </li>
+        <li>
+          <strong>BPR Dana Mandiri Services</strong> – A suite of banking services
+          including a balance check service, a deposit agent system (web &amp; mobile
+          apps), a PPOB API, a collection API for mobile apps, and an OpenAPI service.
+        </li>
+        <li>
+          <strong>Sosialoka Ads Platform</strong> – Campaign management ads platform
+          supporting 5+ client projects simultaneously.
+        </li>
+        <li>
+          <strong>e-KYC Services</strong> – SaaS platform for electronic Know Your
+          Customer with biometric verification and identity management.
+        </li>
+        <li>
+          <strong>AT School</strong> – Student school monitoring application.
+        </li>
+        <li>
+          <strong>JTLExpress Apps</strong> – Official, Mitra, and Kurir Android apps,
+          plus logistics dashboards for shippers and cargo systems.
+        </li>
+        <li>
+          <strong>Tatangga</strong> – House property management system.
+        </li>
+        <li>
+          <strong>Catatan UMKM</strong> – Invoicing management system.
+        </li>
+        <li>
+          <strong>Huniq Property Management</strong> – Property book management platform.
+        </li>
+      </ul>
+
+      <h2>Open Source</h2>
+      <p>
+        You can browse my open-source work and experiments on
+        <a href="https://github.com/Zainal21">github.com/Zainal21</a>.
+      </p>
+    </article>
+
+    <div class="mt-8">
+      <a
+        href="https://github.com/Zainal21"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 rounded-2xl border border-warm-200 bg-white px-5 py-4 shadow-sm dark:border-warm-800 dark:bg-dark-surface dark:shadow-2xl dark:shadow-black/30 hover:border-accent-300 dark:hover:border-accent-700 transition-colors"
+      >
+        <GithubIcon class="w-6 h-6 text-warm-900 dark:text-warm-100" />
+        <span class="text-sm font-semibold text-warm-900 dark:text-warm-100">
+          github.com/Zainal21
+        </span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-4 h-4 text-warm-500"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+          ></path>
+        </svg>
+      </a>
+    </div>
+
+    <Footer />
+  </BaseLayout>
+</Layout>

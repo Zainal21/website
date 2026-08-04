@@ -1,0 +1,111 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import Introduction from '~/components/Introduction.astro'
+---
+
+<Layout title="What I Use | Muhamad Zainal Arifin">
+  <BaseLayout>
+    <Introduction />
+
+    <article class="prose lg:prose-lg mt-12">
+      <h1>What I Use</h1>
+
+      <h2>Hardware</h2>
+      <ul>
+        <li>
+          <strong>Windows / Linux laptop</strong> – My daily driver for development
+        </li>
+        <li>
+          Mechanical keyboard – With tactile switches and programmable layers
+        </li>
+      </ul>
+
+      <h2>Development Environment</h2>
+      <ul>
+        <li>
+          <a href="https://code.visualstudio.com">VS Code</a> – Primary code editor
+        </li>
+        <li>
+          <a href="https://www.jetbrains.com">JetBrains IDEs</a> – PhpStorm for Laravel
+          work and IntelliJ IDEA / Android Studio for Kotlin
+        </li>
+        <li>
+          <a href="https://git-scm.com">Git</a> – Version control, with
+          <a href="https://cli.github.com">gh</a> for GitHub workflows
+        </li>
+        <li>
+          <a href="https://www.docker.com">Docker</a> – Containerized local development
+        </li>
+      </ul>
+
+      <h2>Backend & Databases</h2>
+      <ul>
+        <li>
+          <a href="https://www.mysql.com">MySQL</a> /
+          <a href="https://mariadb.org">MariaDB</a> – Primary relational databases
+        </li>
+        <li>
+          <a href="https://www.postgresql.org">PostgreSQL</a> – For Go and Node.js
+          services
+        </li>
+        <li>
+          <a href="https://redis.io">Redis</a> – Caching and queues
+        </li>
+        <li>
+          <a href="https://tableplus.com">TablePlus</a> – Database GUI for PostgreSQL,
+          MySQL, Redis, and more
+        </li>
+      </ul>
+
+      <h2>Dev Tools</h2>
+      <ul>
+        <li>
+          <a href="https://www.postman.com">Postman</a> – API testing and documentation
+        </li>
+        <li>
+          <a href="https://insomnia.rest">Insomnia</a> – REST/GraphQL client
+        </li>
+        <li>
+          <a href="https://swagger.io">Swagger / OpenAPI</a> – API contract design
+        </li>
+      </ul>
+
+      <h2>DevOps & Infrastructure</h2>
+      <ul>
+        <li>
+          <a href="https://www.docker.com">Docker</a> /
+          <a href="https://kubernetes.io">Kubernetes</a> – Containerization and orchestration
+        </li>
+        <li>
+          <a href="https://docs.github.com/en/actions">GitHub Actions</a> – CI/CD
+          pipelines
+        </li>
+        <li>
+          <a href="https://nginx.org">Nginx</a> – Reverse proxy and web server
+        </li>
+        <li>
+          <a href="https://www.fly.io">Fly.io</a> – Platform for deploying applications
+        </li>
+        <li>
+          <a href="https://grafana.com">Grafana</a> /
+          <a href="https://prometheus.io">Prometheus</a> – Monitoring and observability
+        </li>
+      </ul>
+
+      <h2>Productivity</h2>
+      <ul>
+        <li>
+          <a href="https://obsidian.md">Obsidian</a> – Note-taking with markdown
+          and local-first storage
+        </li>
+        <li>
+          <a href="https://www.notion.com">Notion</a> – Project notes and documentation
+        </li>
+      </ul>
+    </article>
+
+    <Footer />
+  </BaseLayout>
+</Layout>

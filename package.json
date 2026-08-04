@@ -1,0 +1,63 @@
+{
+  "private": true,
+  "name": "muhamadzain-me",
+  "description": "https://muhamadzain.me",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "format": "prettier --ignore-path .gitignore --write .",
+    "check-format": "prettier --ignore-path .gitignore --check .",
+    "check-lint": "eslint .",
+    "check-build": "bun run build",
+    "check-types": "astro check",
+    "validate": "bun run check-format && bun run check-lint && bun run check-types && bun run check-build"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/sitemap": "^3.2.0",
+    "@expressive-code/plugin-line-numbers": "^0.41.6",
+    "astro": "^5.1.0",
+    "astro-expressive-code": "^0.41.6",
+    "clsx": "^1.2.1",
+    "tailwind-merge": "^1.12.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.18",
+    "@typescript-eslint/parser": "^8.53.1",
+    "bun-types": "^1.1.29",
+    "eslint": "^9.39.2",
+    "eslint-plugin-astro": "^1.5.0",
+    "lefthook": "^1.4.8",
+    "pngquant-bin": "^9.0.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.34.5",
+    "svgo": "^4.0.0",
+    "tailwindcss": "4",
+    "typescript": "^5.1.6"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "plugins": [
+      "prettier-plugin-astro"
+    ],
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ]
+  },
+  "trustedDependencies": [
+    "esbuild",
+    "pngquant-bin"
+  ]
+}

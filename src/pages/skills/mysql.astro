@@ -1,0 +1,40 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I design and optimize relational database architectures for reliability, speed, and long-term scalability.'
+
+const delivered = [
+  'Designed scalable database architectures for the <a href="/work/katalis">MK Jewelry ERP System</a> and <a href="/work/katalis">BPR Dana Mandiri</a> banking services.',
+  'Delivered up to 40% improvement in application performance through optimized database design at <a href="/work/platon">Platon</a>.',
+  'Created database structures and supporting tools for multiple web and mobile applications at <a href="/work/oxy">OXY Creative</a>.',
+]
+
+const why =
+  'Behind every reliable application is a well-designed database. I focus on efficient schemas, proper indexing, and queries that scale with the product.'
+
+const projects = [
+  { label: 'Katalis Kreasi Teknologi', href: '/work/katalis' },
+  { label: 'Platon', href: '/work/platon' },
+  { label: 'OXY Creative', href: '/work/oxy' },
+]
+---
+
+<Layout
+  title="MySQL | Muhamad Zainal Arifin"
+  description="MySQL and database design experience across ERP, banking, and SaaS projects."
+>
+  <BaseLayout>
+    <SkillPage
+      title="MySQL"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

@@ -1,0 +1,40 @@
+name: validate
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/setup
+      - name: Check build
+        run: bun run check-build
+
+  formatting:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/setup
+      - name: Check formatting
+        run: bun run check-format
+
+  lint:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/setup
+      - name: Check lint
+        run: bun run check-lint
+
+  types:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/setup
+      - name: Check types
+        run: bun run check-types

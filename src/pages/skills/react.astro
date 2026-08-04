@@ -1,0 +1,40 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I build modern frontend interfaces with React.js for web applications and admin dashboards.'
+
+const delivered = [
+  'Developed user-facing interfaces and admin dashboards for the <a href="/work/platon">Sosialoka Ads Platform</a> and <a href="/work/platon">e-Pengantar Kerja Kemnaker</a> at Platon.',
+  'Built web applications and dashboards at <a href="/work/oxy">OXY Creative</a>, including the <a href="/work/oxy">eKYC Service</a> control panel and dashboard for TekenAja.',
+  'Contributed React frontends across projects at <a href="/work/katalis">Katalis Kreasi Teknologi</a>.',
+]
+
+const why =
+  'React.js lets me compose reusable, maintainable UI components. Combined with my backend experience, I can build and ship complete features end to end.'
+
+const projects = [
+  { label: 'Platon', href: '/work/platon' },
+  { label: 'OXY Creative / TekenAja!', href: '/work/tekenaja' },
+  { label: 'Katalis Kreasi Teknologi', href: '/work/katalis' },
+]
+---
+
+<Layout
+  title="React.js | Muhamad Zainal Arifin"
+  description="React.js experience building frontend interfaces and admin dashboards."
+>
+  <BaseLayout>
+    <SkillPage
+      title="React.js"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

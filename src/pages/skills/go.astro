@@ -1,0 +1,39 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I write Go services that are simple, fast, and easy to maintain — certified at intermediate level.'
+
+const delivered = [
+  'Earned the <a href="https://www.hackerrank.com/certificates" target="_blank" rel="noopener noreferrer">Go (Intermediate)</a> and Go (Basic) certificates, plus Problem Solving (Basic) in Go.',
+  'Used Go for high-performance services such as the <a href="/work/katalis">BPR Dana Mandiri PPOB API</a> and OpenAPI Service.',
+  'Worked on platform services and deployments at <a href="/work/platon">Platon</a>.',
+]
+
+const why =
+  "Go's concurrency and runtime performance make it my choice for reliable backend services. I write clean, idiomatic code with strong focus on error handling and testability."
+
+const projects = [
+  { label: 'Katalis Kreasi Teknologi', href: '/work/katalis' },
+  { label: 'Platon', href: '/work/platon' },
+]
+---
+
+<Layout
+  title="Go | Muhamad Zainal Arifin"
+  description="Go experience and certification for backend services."
+>
+  <BaseLayout>
+    <SkillPage
+      title="Go"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

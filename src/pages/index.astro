@@ -1,0 +1,242 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import Introduction from '~/components/Introduction.astro'
+
+const skillRows = [
+  [
+    { label: 'Laravel', href: '/skills/laravel' },
+    { label: 'CodeIgniter', href: '/skills/codeigniter' },
+    { label: 'Express.js', href: '/skills/express-js' },
+  ],
+  [
+    { label: 'NestJS', href: '/skills/nestjs' },
+    { label: 'Go Fiber', href: '/skills/go-fiber' },
+    { label: 'React.js', href: '/skills/react' },
+  ],
+  [
+    { label: 'Kotlin', href: '/skills/kotlin' },
+    { label: 'Flutter', href: '/skills/flutter' },
+    { label: 'Go', href: '/skills/go' },
+  ],
+  [
+    { label: 'DevOps', href: '/skills/devops' },
+    { label: 'CI/CD', href: '/skills/ci-cd' },
+    { label: 'MySQL', href: '/skills/mysql' },
+  ],
+]
+
+const focusAreas = [
+  {
+    title: 'Backend Development',
+    description:
+      'Designing scalable APIs and services with Laravel, CodeIgniter, NestJS, Express.js, and Go Fiber — with clean, maintainable, and efficient database architectures.',
+    icon: 'server',
+  },
+  {
+    title: 'Mobile Development',
+    description:
+      'Building cross-platform and native mobile applications with Flutter and Kotlin, from POS systems to customer-facing apps.',
+    icon: 'device',
+  },
+  {
+    title: 'DevOps & Infrastructure',
+    description:
+      'Automating deployments, setting up CI/CD pipelines, and managing infrastructure to deliver reliable, scalable systems.',
+    icon: 'cloud',
+  },
+]
+
+const currentRoles = [
+  {
+    company: 'OXY Creative Inc',
+    role: 'Software Engineer',
+    period: 'Nov 2022 – Present',
+    location: 'South Jakarta, Indonesia',
+  },
+  {
+    company: 'Katalis Kreasi Teknologi',
+    role: 'Software Engineer',
+    period: 'Apr 2024 – Present',
+    location: 'Yogyakarta, Indonesia',
+  },
+  {
+    company: 'Platon',
+    role: 'Software & Platform Engineer (Freelance)',
+    period: 'Oct 2024 – Present',
+    location: 'South Jakarta, Indonesia',
+  },
+  {
+    company: 'Linkpos Digital Kreatif',
+    role: 'Mobile Engineer (Freelance)',
+    period: 'May 2026 – Present',
+    location: 'Indonesia',
+  },
+]
+---
+
+<Layout>
+  <BaseLayout>
+    <Introduction />
+
+    <!-- Expertise Section -->
+    <section class="mt-16 animate-fade-in-up opacity-0 stagger-4">
+      <div
+        class="overflow-hidden rounded-2xl border border-warm-200 bg-white shadow-sm dark:border-warm-800 dark:bg-dark-surface dark:shadow-2xl dark:shadow-black/30"
+      >
+        <div
+          class="flex items-center justify-between border-b border-warm-200 px-5 py-3 dark:border-warm-800"
+        >
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.22em] text-accent-600 dark:text-accent-300"
+          >
+            Expertise
+          </p>
+          <p class="text-xs text-warm-500 dark:text-warm-600">12 Skills</p>
+        </div>
+        <div class="grid gap-0 lg:grid-cols-[0.78fr_1.65fr]">
+          <div
+            class="border-b border-warm-200 p-5 dark:border-warm-800 lg:border-b-0 lg:border-r"
+          >
+            <h2
+              class="text-3xl font-display font-bold tracking-tight text-warm-900 dark:text-white"
+            >
+              Tech Ledger
+            </h2>
+            <p class="mt-3 text-warm-600 dark:text-warm-400">
+              A concise index of the technologies I use most.
+            </p>
+          </div>
+          <div class="divide-y divide-warm-200 dark:divide-warm-800">
+            {
+              skillRows.map((row) => (
+                <div class="grid grid-cols-1 divide-y divide-warm-200 dark:divide-warm-800 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                  {row.map((skill) => (
+                    <a
+                      href={skill.href}
+                      class="ledger-hover-cell flex items-center justify-between px-4 py-3 text-sm font-semibold text-warm-900 dark:text-warm-100"
+                    >
+                      {skill.label}
+                      <span class="ledger-hover-arrow">→</span>
+                    </a>
+                  ))}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Focus Areas Section -->
+    <section class="mt-16 animate-fade-in-up opacity-0 stagger-5">
+      <div class="grid gap-6 md:grid-cols-3">
+        {
+          focusAreas.map((area) => (
+            <div class="rounded-2xl border border-warm-200 bg-white p-5 shadow-sm dark:border-warm-800 dark:bg-dark-surface dark:shadow-2xl dark:shadow-black/30">
+              <div class="w-10 h-10 flex items-center justify-center bg-accent-100 dark:bg-accent-400/10 rounded-xl">
+                {area.icon === 'server' && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5 text-accent-600 dark:text-accent-400"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"
+                    />
+                  </svg>
+                )}
+                {area.icon === 'device' && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5 text-accent-600 dark:text-accent-400"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
+                    />
+                  </svg>
+                )}
+                {area.icon === 'cloud' && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5 text-accent-600 dark:text-accent-400"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"
+                    />
+                  </svg>
+                )}
+              </div>
+              <h3 class="mt-4 font-display text-lg font-semibold tracking-tight text-warm-900 dark:text-white">
+                {area.title}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-warm-600 dark:text-warm-400">
+                {area.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Current Roles Section -->
+    <section class="mt-16 animate-fade-in-up opacity-0 stagger-6">
+      <article
+        class="overflow-hidden rounded-2xl border border-warm-200 bg-white shadow-sm dark:border-warm-800 dark:bg-dark-surface dark:shadow-2xl dark:shadow-black/30"
+      >
+        <div class="border-b border-warm-200 px-5 py-3 dark:border-warm-800">
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.22em] text-accent-600 dark:text-accent-300"
+          >
+            Currently
+          </p>
+        </div>
+        <div class="divide-y divide-warm-200 dark:divide-warm-800">
+          {
+            currentRoles.map((role) => (
+              <a
+                href="/work"
+                class="ledger-hover-cell flex items-start justify-between gap-4 px-5 py-4"
+              >
+                <div>
+                  <p class="text-sm font-bold text-warm-900 dark:text-white">
+                    {role.role}
+                  </p>
+                  <p class="text-sm text-warm-600 dark:text-warm-400">
+                    {role.company} · {role.location}
+                  </p>
+                </div>
+                <div class="flex shrink-0 items-center gap-3">
+                  <span class="text-xs text-warm-500 dark:text-warm-500 whitespace-nowrap">
+                    {role.period}
+                  </span>
+                  <span class="ledger-hover-arrow">→</span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </article>
+    </section>
+
+    <Footer />
+  </BaseLayout>
+</Layout>

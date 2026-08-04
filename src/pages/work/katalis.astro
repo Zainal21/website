@@ -1,0 +1,179 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+
+const pageTitle = 'Katalis Kreasi Teknologi'
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: Astro.site?.toString() || 'https://muhamadzain.me',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Work',
+      item: new URL('/work', Astro.site).toString(),
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: pageTitle,
+      item: canonicalURL.toString(),
+    },
+  ],
+}
+
+const keyProjects = [
+  {
+    name: 'MK Jewelry System (ERP System)',
+    description:
+      'End-to-end ERP system for a jewelry business with scalable database architecture.',
+  },
+  {
+    name: 'MK Jewelry POS',
+    description: 'Point-of-sale system supporting daily retail operations.',
+  },
+  {
+    name: 'BPR Dana Mandiri Balance Check Service',
+    description: 'Banking service for balance checking.',
+  },
+  {
+    name: 'BPR Dana Mandiri Deposito Agent System',
+    description:
+      'Deposit agent system delivered as web and mobile apps for agents.',
+  },
+  {
+    name: 'BPR Dana Mandiri PPOB API',
+    description: 'Payment Point Online Bank API built with Go Fiber.',
+  },
+  {
+    name: 'BPR Dana Mandiri Andalas Collection API',
+    description: 'Collection API serving mobile applications.',
+  },
+  {
+    name: 'BPR Dana Mandiri OpenAPI Service',
+    description: 'Open API service for banking integrations.',
+  },
+  {
+    name: 'AT School',
+    description: 'Student school monitoring application.',
+  },
+]
+---
+
+<Layout
+  title="Katalis Kreasi Teknologi - Work | Muhamad Zainal Arifin"
+  description="Software Engineer at Katalis Kreasi Teknologi: ERP, POS, banking services, and mobile apps."
+>
+  <BaseLayout>
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <article class="mt-12">
+      <a
+        href="/work"
+        class="inline-flex items-center gap-1 text-sm text-warm-500 dark:text-warm-400 hover:text-warm-700 dark:hover:text-warm-300 mb-6"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-4 h-4"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+        </svg>
+        Back to Work
+      </a>
+
+      <header class="mb-12">
+        <div class="flex items-start gap-5">
+          <img
+            src="/company/katalis-kreasi-teknologi.png"
+            alt="Katalis Kreasi Teknologi logo"
+            class="h-16 w-auto max-w-36 object-contain rounded-lg shadow-sm shrink-0"
+          />
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-accent-600 dark:text-accent-400"
+            >
+              Software Engineer · Apr 2024 – Present
+            </p>
+            <h1
+              class="mt-2 text-3xl sm:text-4xl font-display font-bold text-warm-900 dark:text-warm-100"
+            >
+              Katalis Kreasi Teknologi
+            </h1>
+            <p class="mt-2 text-warm-600 dark:text-warm-400">
+              Daerah Istimewa Yogyakarta, Indonesia
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <div class="prose lg:prose-lg max-w-none">
+        <p>
+          Collaborated closely with Project Owners and Project Managers to
+          design and develop user-centric software solutions tailored to
+          specific client requirements. Managed the end-to-end application
+          lifecycle, including regular maintenance, bug fixing, and continuous
+          feature development.
+        </p>
+
+        <h2>Highlights</h2>
+        <ul>
+          <li>
+            Designed and implemented scalable database architectures and
+            supporting tools, ensuring smooth application performance and high
+            reliability.
+          </li>
+          <li>
+            Handled regular maintenance tasks and added new features to improve
+            applications over time.
+          </li>
+          <li>
+            Managed end-to-end application lifecycle to enhance system
+            functionality.
+          </li>
+          <li>Ensured databases are well-designed and work efficiently.</li>
+        </ul>
+
+        <h2>Key Projects</h2>
+        <ul>
+          {
+            keyProjects.map((project) => (
+              <li>
+                <strong>{project.name}:</strong> {project.description}
+              </li>
+            ))
+          }
+          <li>And various other internal and client projects.</li>
+        </ul>
+
+        <h2>Technology Stack</h2>
+        <ul>
+          <li>Laravel</li>
+          <li>Go Fiber</li>
+          <li>Kotlin</li>
+          <li>React.js</li>
+          <li>MySQL / Relational Databases</li>
+          <li>REST APIs</li>
+        </ul>
+      </div>
+    </article>
+
+    <Footer />
+  </BaseLayout>
+</Layout>

@@ -1,0 +1,158 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+
+const companies = [
+  {
+    name: 'OXY Creative Inc',
+    href: '/work/oxy',
+    logo: '/company/oxy-creative.png',
+    role: 'Software Engineer',
+    period: 'Nov 2022 – Present',
+    location: 'Spring, TX',
+    description:
+      'Built SaaS platforms including property management and invoicing systems, plus an eKYC service with OCR and liveness detection.',
+    tags: ['Laravel', 'Express.js', 'React.js', 'Database'],
+  },
+  {
+    name: 'Katalis Kreasi Teknologi',
+    href: '/work/katalis',
+    logo: '/company/katalis-kreasi-teknologi.png',
+    role: 'Software Engineer',
+    period: 'Apr 2024 – Present',
+    location: 'Yogyakarta, Indonesia',
+    description:
+      'Designed ERP and POS systems for jewelry, banking services for BPR Dana Mandiri, and school monitoring apps — spanning backend, database architecture, and mobile.',
+    tags: ['Laravel', 'Go Fiber', 'Kotlin', 'MySQL'],
+  },
+  {
+    name: 'Platon (Part-time / Freelance)',
+    href: '/work/platon',
+    logo: '/company/platon.png',
+    role: 'Software & Platform Engineer',
+    period: 'Oct 2024 – Present',
+    location: 'South Jakarta, Indonesia',
+    description:
+      'Built a SaaS ads platform supporting 5+ client projects, improved application performance by up to 40%, and handled infrastructure and deployments.',
+    tags: ['NestJS', 'Go', 'DevOps', 'Fly.io'],
+  },
+  {
+    name: 'Linkpos Digital Kreatif (Part-time / Freelance)',
+    href: '/work/linkpos',
+    logo: '/company/linkpos-digital-kreatif.webp',
+    role: 'Mobile Engineer',
+    period: 'May 2026 – Present',
+    location: 'Indonesia',
+    description:
+      'Mobile engineering work focused on cross-platform application development.',
+    tags: ['Flutter', 'Mobile'],
+  },
+  {
+    name: 'TekenAja!',
+    href: '/work/tekenaja',
+    logo: '/company/tekenaja.jpg',
+    role: 'Software Developer – Pando Team',
+    period: 'Jan 2023 – Mar 2024',
+    location: 'South Jakarta, Indonesia',
+    description:
+      'Key member of the outsourcing team for OXY Creative, building a SaaS eKYC platform with biometric verification and identity management.',
+    tags: ['Express.js', 'eKYC', 'Biometric'],
+  },
+  {
+    name: 'CV. Cipta Karya Infotika (Cikajogja)',
+    href: '/work/cikajogja',
+    logo: '/company/cikajogja.png',
+    role: 'Programmer',
+    period: 'Jun 2021 – Oct 2022',
+    location: 'Sleman, Indonesia',
+    description:
+      'Delivered logistics dashboards, government information systems, and Android apps for JTLExpress, DKExpress, and public services.',
+    tags: ['CodeIgniter', 'Laravel', 'Kotlin', 'MySQL'],
+  },
+  {
+    name: 'Kadang Koding Indonesia',
+    href: '/work/kadang-koding',
+    logo: '/company/kadang-koding.png',
+    role: 'Web Developer',
+    period: 'Jan 2020 – Apr 2020',
+    location: 'Surakarta, Indonesia',
+    description:
+      'Early full-stack web development experience — database design, backend logic, and application optimization.',
+    tags: ['Web Development', 'CodeIgniter', 'Database'],
+  },
+]
+---
+
+<Layout
+  title="Work | Muhamad Zainal Arifin"
+  description="Professional experience across software engineering, backend, mobile, and DevOps roles."
+>
+  <BaseLayout>
+    <section class="animate-fade-in-up opacity-0">
+      <h1
+        class="text-3xl sm:text-4xl font-display font-bold text-warm-900 dark:text-warm-100"
+      >
+        Work
+      </h1>
+      <p class="text-lg text-warm-600 dark:text-warm-400 mt-3 leading-relaxed">
+        Selected professional experience. Each role highlights a different part
+        of my backend, mobile, and DevOps engineering experience.
+      </p>
+    </section>
+
+    <div class="grid gap-5 mt-10">
+      {
+        companies.map((company, index) => (
+          <a
+            href={company.href}
+            class={`card-soft p-6 group hover-lift animate-fade-in-up opacity-0 stagger-${
+              index + 1
+            }`}
+          >
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-wrap items-start justify-between gap-2">
+                <div class="flex items-center gap-4">
+                  <img
+                    src={company.logo}
+                    alt={`${company.name} logo`}
+                    loading="lazy"
+                    class="h-12 w-auto max-w-28 object-contain rounded-md shrink-0 shadow-sm"
+                  />
+                  <div>
+                    <h3 class="text-lg font-semibold text-warm-900 dark:text-warm-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+                      {company.name}
+                    </h3>
+                    <p class="mt-1 text-sm font-medium text-accent-600 dark:text-accent-400">
+                      {company.role}
+                    </p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm font-semibold text-warm-900 dark:text-warm-100 whitespace-nowrap">
+                    {company.period}
+                  </p>
+                  <p class="mt-1 text-xs text-warm-500 dark:text-warm-500">
+                    {company.location}
+                  </p>
+                </div>
+              </div>
+              <p class="text-warm-600 dark:text-warm-400 leading-relaxed">
+                {company.description}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {company.tags.map((tag) => (
+                  <span class="px-2.5 py-1 text-xs font-medium bg-warm-200 dark:bg-warm-800/40 text-warm-700 dark:text-warm-300 rounded-lg">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <Footer />
+  </BaseLayout>
+</Layout>

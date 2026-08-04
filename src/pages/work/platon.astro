@@ -1,0 +1,173 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+
+const pageTitle = 'Platon'
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: Astro.site?.toString() || 'https://muhamadzain.me',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Work',
+      item: new URL('/work', Astro.site).toString(),
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: pageTitle,
+      item: canonicalURL.toString(),
+    },
+  ],
+}
+
+const keyProjects = [
+  {
+    name: 'Sosialoka Ads Platform',
+    description:
+      'Campaign management ads platform supporting 5+ client projects simultaneously.',
+  },
+  {
+    name: 'e-Pengantar Kerja Kemnaker',
+    description: 'Government project for work-related letter management.',
+  },
+  {
+    name: 'Korin sh',
+    description:
+      'Platform deployment app integrated with Fly.io for application deployments.',
+  },
+  {
+    name: 'Huniq Property Management',
+    description: 'Property book management platform.',
+  },
+  {
+    name: 'Parental Control Apps',
+    description:
+      'Infrastructure and deployment setup for parental control applications.',
+  },
+]
+---
+
+<Layout
+  title="Platon - Work | Muhamad Zainal Arifin"
+  description="Software & Platform Engineer at Platon: SaaS ads platform, performance optimization, and infrastructure."
+>
+  <BaseLayout>
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <article class="mt-12">
+      <a
+        href="/work"
+        class="inline-flex items-center gap-1 text-sm text-warm-500 dark:text-warm-400 hover:text-warm-700 dark:hover:text-warm-300 mb-6"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-4 h-4"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+        </svg>
+        Back to Work
+      </a>
+
+      <header class="mb-12">
+        <div class="flex items-start gap-5">
+          <img
+            src="/company/platon.png"
+            alt="Platon logo"
+            width="128"
+            height="128"
+            class="w-16 h-16 rounded-2xl shadow-sm shrink-0"
+          />
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-accent-600 dark:text-accent-400"
+            >
+              Software & Platform Engineer · Oct 2024 – Present
+            </p>
+            <h1
+              class="mt-2 text-3xl sm:text-4xl font-display font-bold text-warm-900 dark:text-warm-100"
+            >
+              Platon
+            </h1>
+            <p class="mt-2 text-warm-600 dark:text-warm-400">
+              Jakarta Selatan, Indonesia · Individual Contributor
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <div class="prose lg:prose-lg max-w-none">
+        <p>
+          Collaborated closely with Project Owners and Project Managers to
+          develop a user-friendly SaaS platform, successfully supporting 5+
+          client projects simultaneously. Worked cross-functionally with
+          multiple teams to seamlessly integrate new features into existing
+          systems.
+        </p>
+
+        <h2>Highlights</h2>
+        <ul>
+          <li>
+            Designed and implemented robust database architectures, resulting in
+            up to 40% improvement in application performance and enhanced
+            scalability.
+          </li>
+          <li>
+            Performed regular maintenance, troubleshooting, and feature
+            development that reduced application downtime while continuously
+            improving overall system reliability.
+          </li>
+          <li>
+            Accelerated deployment processes through cross-functional feature
+            integration.
+          </li>
+          <li>
+            Presented project progress, technical updates, and deliverables to
+            clients and management, supporting informed decision-making.
+          </li>
+        </ul>
+
+        <h2>Key Projects</h2>
+        <ul>
+          {
+            keyProjects.map((project) => (
+              <li>
+                <strong>{project.name}:</strong> {project.description}
+              </li>
+            ))
+          }
+        </ul>
+
+        <h2>Technology Stack</h2>
+        <ul>
+          <li>NestJS</li>
+          <li>Go</li>
+          <li>React.js</li>
+          <li>MySQL / Relational Databases</li>
+          <li>DevOps & Infrastructure</li>
+          <li>Fly.io</li>
+        </ul>
+      </div>
+    </article>
+
+    <Footer />
+  </BaseLayout>
+</Layout>

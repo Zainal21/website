@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /imprint
+
+Sitemap: https://muhamadzain.me/sitemap.xml

@@ -1,0 +1,41 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I set up the systems that keep products stable: infrastructure, monitoring, and automated deployments — certified as a Basic DevOps Engineer by Dicoding.'
+
+const delivered = [
+  'Set up infrastructure and deployment for the <a href="/work/platon">Parental Control Apps</a>, integrating deployment with Fly.io at Platon.',
+  'Managed end-to-end application lifecycles — maintenance, bug fixing, and continuous feature development — at <a href="/work/katalis">Katalis Kreasi Teknologi</a>.',
+  'Earned the <a href="https://www.dicoding.com" target="_blank" rel="noopener noreferrer">Basic DevOps Engineer</a> certification from Dicoding.',
+  'Applied scalable system design across planning, development, and deployment at <a href="/work/oxy">OXY Creative</a>.',
+]
+
+const why =
+  'DevOps is about repeatability and reliability. I focus on infrastructure as code, clean deployment pipelines, and systems that are easy to operate and monitor.'
+
+const projects = [
+  { label: 'Platon', href: '/work/platon' },
+  { label: 'Katalis Kreasi Teknologi', href: '/work/katalis' },
+  { label: 'OXY Creative', href: '/work/oxy' },
+]
+---
+
+<Layout
+  title="DevOps | Muhamad Zainal Arifin"
+  description="DevOps experience across infrastructure, deployment, and application lifecycle."
+>
+  <BaseLayout>
+    <SkillPage
+      title="DevOps"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

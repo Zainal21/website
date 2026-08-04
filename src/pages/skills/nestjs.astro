@@ -1,0 +1,39 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I use NestJS to build structured, testable, and scalable backend services with TypeScript.'
+
+const delivered = [
+  'Developed the <a href="/work/platon">Sosialoka Ads Platform</a> — a campaign management ads platform supporting 5+ client projects simultaneously.',
+  'Built the <a href="/work/platon">e-Pengantar Kerja Kemnaker</a> government project and the <a href="/work/platon">Huniq Property Management</a> platform at Platon.',
+  'Contributed robust database architectures and performance improvements (up to 40% faster) on NestJS services at <a href="/work/platon">Platon</a>.',
+]
+
+const why =
+  'NestJS brings modular architecture and dependency injection to TypeScript backends. It helps me keep large, multi-team services organized and reliable.'
+
+const projects = [
+  { label: 'Platon', href: '/work/platon' },
+  { label: 'Katalis Kreasi Teknologi', href: '/work/katalis' },
+]
+---
+
+<Layout
+  title="NestJS | Muhamad Zainal Arifin"
+  description="NestJS experience building structured, scalable backend services."
+>
+  <BaseLayout>
+    <SkillPage
+      title="NestJS"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

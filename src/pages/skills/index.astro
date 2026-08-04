@@ -1,0 +1,110 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+
+const skills = [
+  {
+    title: 'Laravel',
+    description:
+      'Web applications, APIs, ERP and POS systems with maintainable structure.',
+    href: '/skills/laravel',
+  },
+  {
+    title: 'CodeIgniter',
+    description: 'Lean MVC applications for logistics and government projects.',
+    href: '/skills/codeigniter',
+  },
+  {
+    title: 'Express.js',
+    description: 'Fast, scalable REST APIs and backend services on Node.js.',
+    href: '/skills/express-js',
+  },
+  {
+    title: 'NestJS',
+    description: 'Structured, testable TypeScript backend services.',
+    href: '/skills/nestjs',
+  },
+  {
+    title: 'Go Fiber',
+    description: 'High-performance HTTP services with Go.',
+    href: '/skills/go-fiber',
+  },
+  {
+    title: 'React.js',
+    description: 'Modern frontend interfaces and admin dashboards.',
+    href: '/skills/react',
+  },
+  {
+    title: 'Kotlin',
+    description: 'Native Android apps for logistics, banking, and business.',
+    href: '/skills/kotlin',
+  },
+  {
+    title: 'Flutter',
+    description: 'Cross-platform mobile apps from a single codebase.',
+    href: '/skills/flutter',
+  },
+  {
+    title: 'Go',
+    description: 'Simple, fast, and maintainable backend services.',
+    href: '/skills/go',
+  },
+  {
+    title: 'DevOps',
+    description: 'Infrastructure, monitoring, and automated deployments.',
+    href: '/skills/devops',
+  },
+  {
+    title: 'CI/CD',
+    description: 'Automated build, test, and release pipelines.',
+    href: '/skills/ci-cd',
+  },
+  {
+    title: 'MySQL',
+    description: 'Database design and optimization for scale.',
+    href: '/skills/mysql',
+  },
+]
+---
+
+<Layout
+  title="Skills | Muhamad Zainal Arifin"
+  description="Skill overview with short summaries and links to detailed project highlights."
+>
+  <BaseLayout>
+    <section class="animate-fade-in-up opacity-0">
+      <h1
+        class="text-3xl sm:text-4xl font-display font-bold text-warm-900 dark:text-warm-100"
+      >
+        Skills
+      </h1>
+      <p class="text-lg text-warm-600 dark:text-warm-400 mt-3 leading-relaxed">
+        A quick overview of the areas I work in most. Each skill links to a
+        short summary of past projects and contributions.
+      </p>
+    </section>
+
+    <div class="grid sm:grid-cols-2 gap-4 mt-10">
+      {
+        skills.map((skill, index) => (
+          <a
+            href={skill.href}
+            class={`card-soft p-5 group hover-lift animate-fade-in-up opacity-0 stagger-${
+              index + 1
+            }`}
+          >
+            <h3 class="text-lg font-semibold text-warm-900 dark:text-warm-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+              {skill.title}
+            </h3>
+            <p class="text-warm-600 dark:text-warm-400 mt-2">
+              {skill.description}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+
+    <Footer />
+  </BaseLayout>
+</Layout>

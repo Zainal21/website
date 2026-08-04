@@ -1,0 +1,40 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I build CI/CD pipelines that catch issues early and make releases fast and predictable.'
+
+const delivered = [
+  'Automated builds, checks, and deployments to accelerate release processes at <a href="/work/platon">Platon</a>.',
+  'Integrated new features into existing systems with automated deployment at <a href="/work/oxy">OXY Creative</a>.',
+  'Set up deployment pipelines and infrastructure as code for client projects at <a href="/work/katalis">Katalis Kreasi Teknologi</a>.',
+]
+
+const why =
+  'Good CI/CD reduces manual steps and human error. I design pipelines that validate changes continuously and ship consistently across environments.'
+
+const projects = [
+  { label: 'Platon', href: '/work/platon' },
+  { label: 'OXY Creative', href: '/work/oxy' },
+  { label: 'Katalis Kreasi Teknologi', href: '/work/katalis' },
+]
+---
+
+<Layout
+  title="CI/CD | Muhamad Zainal Arifin"
+  description="CI/CD experience building automated build, test, and release pipelines."
+>
+  <BaseLayout>
+    <SkillPage
+      title="CI/CD"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

@@ -1,0 +1,432 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Use class-based dark mode instead of media query */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* System font stacks for optimal performance */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-article: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Pure black & white base */
+  --color-warm-50: #ffffff;
+  --color-warm-100: #fafafa;
+  --color-warm-200: #f0f0f0;
+  --color-warm-300: #e0e0e0;
+  --color-warm-400: #b0b0b0;
+  --color-warm-500: #808080;
+  --color-warm-600: #606060;
+  --color-warm-700: #404040;
+  --color-warm-800: #202020;
+  --color-warm-900: #101010;
+
+  /* Accent - electric indigo */
+  --color-accent-50: #eef2ff;
+  --color-accent-100: #e0e7ff;
+  --color-accent-200: #c7d2fe;
+  --color-accent-300: #a5b4fc;
+  --color-accent-400: #818cf8;
+  --color-accent-500: #6366f1;
+  --color-accent-600: #4f46e5;
+  --color-accent-700: #4338ca;
+  --color-accent-800: #3730a3;
+  --color-accent-900: #312e81;
+
+  /* Dark mode - true black */
+  --color-dark-bg: #000000;
+  --color-dark-surface: #0a0a0a;
+  --color-dark-elevated: #141414;
+}
+
+a.button {
+  @apply inline-block rounded-lg border border-warm-200 bg-white px-6 py-2.5 shadow-sm transition-all duration-300 hover:shadow-md hover:border-accent-400 hover:-translate-y-0.5 dark:bg-dark-surface dark:border-warm-800 dark:text-warm-100 dark:hover:border-accent-500;
+}
+
+h1 {
+  @apply text-3xl font-bold text-warm-900 dark:text-white tracking-tight;
+}
+
+h2 {
+  @apply text-2xl font-bold text-warm-900 dark:text-white;
+}
+
+h3 {
+  @apply text-xl font-semibold text-warm-900 dark:text-white;
+}
+
+h4,
+h5,
+h6 {
+  @apply text-base font-semibold text-warm-900 dark:text-white;
+}
+
+/* Expressive Code overrides */
+.expressive-code {
+  margin: 1.5rem 0;
+}
+
+.expressive-code .frame {
+  border-color: #6366f1 !important;
+}
+
+@media (min-width: 640px) {
+  pre {
+    @apply rounded-md;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+pre code,
+pre code .line,
+pre code span {
+  background: transparent !important;
+  border: none !important;
+}
+
+pre code {
+  font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+}
+
+/* Syntax highlighting - restrained, monochrome-forward */
+.c-fg {
+  color: #d4d4d4;
+}
+.c-kw {
+  color: #818cf8;
+}
+.c-cn {
+  color: #a5b4fc;
+}
+.c-pm {
+  color: #e5e5e5;
+}
+.c-fn {
+  color: #c7d2fe;
+}
+.c-st {
+  color: #a3a3a3;
+}
+.c-cm {
+  color: #525252;
+  font-style: italic;
+}
+
+/* Line numbers - subtle, integrated */
+pre > code {
+  counter-reset: line;
+  display: block;
+}
+
+pre > code > .line {
+  display: block;
+}
+
+pre > code > .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1.5rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: #404040;
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+pre > code[data-line-numbers-max-digits='2'] > .line::before {
+  width: 1.75rem;
+}
+
+pre > code[data-line-numbers-max-digits='3'] > .line::before {
+  width: 2rem;
+}
+
+/* Prose styling - clean with accent pops */
+.prose {
+  @apply text-warm-700 dark:text-warm-300;
+}
+
+.prose p {
+  @apply text-warm-600 dark:text-warm-400 leading-relaxed;
+}
+
+.prose a {
+  @apply text-accent-600 dark:text-accent-400 no-underline border-b border-accent-300 dark:border-accent-700 transition-colors hover:border-accent-500 dark:hover:border-accent-400;
+}
+
+.prose a:hover {
+  @apply text-accent-500 dark:text-accent-300;
+}
+
+.prose strong {
+  @apply text-warm-900 dark:text-white font-semibold;
+}
+
+.prose blockquote {
+  @apply border-accent-500 text-warm-600 dark:border-accent-400 dark:text-warm-400 bg-warm-100 dark:bg-dark-elevated rounded-r-lg pl-4 pr-4 py-2 italic;
+}
+
+.prose ul,
+.prose ol {
+  @apply text-warm-600 dark:text-warm-400;
+}
+
+.prose li::marker {
+  @apply text-accent-500 dark:text-accent-400;
+}
+
+.prose p code {
+  @apply rounded-md border border-warm-200 bg-warm-100 px-1.5 py-0.5 font-medium text-warm-800 dark:border-warm-800 dark:bg-dark-elevated dark:text-warm-200;
+}
+
+.prose p code:before {
+  display: none;
+}
+
+.prose p code:after {
+  display: none;
+}
+
+/* Mobile menu FAB icon toggle */
+#menu-toggle:checked ~ label[for='menu-toggle'] .icon-hamburger {
+  display: none;
+}
+
+#menu-toggle:checked ~ label[for='menu-toggle'] .icon-close {
+  display: block;
+}
+
+#menu-toggle:not(:checked) ~ label[for='menu-toggle'] .icon-hamburger {
+  display: block;
+}
+
+#menu-toggle:not(:checked) ~ label[for='menu-toggle'] .icon-close {
+  display: none;
+}
+
+/* Mobile menu bottom sheet toggle */
+body:has(#menu-toggle:checked) nav.mobile-menu {
+  transform: scale(1) !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 1279px) {
+  nav.mobile-menu {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Marquee animation for client logos */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Subtle fade-in animation for page elements - only on first visit */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Disable animations if user has visited before (session) */
+.animation-done .animate-fade-in-up {
+  animation: none;
+  opacity: 1;
+}
+
+/* Stagger animation delays */
+.stagger-1 {
+  animation-delay: 0.1s;
+}
+.stagger-2 {
+  animation-delay: 0.15s;
+}
+.stagger-3 {
+  animation-delay: 0.2s;
+}
+.stagger-4 {
+  animation-delay: 0.25s;
+}
+.stagger-5 {
+  animation-delay: 0.3s;
+}
+.stagger-6 {
+  animation-delay: 0.35s;
+}
+
+/* Smooth hover lift effect */
+.hover-lift {
+  @apply transition-all duration-300 ease-out;
+}
+
+.hover-lift:hover {
+  @apply -translate-y-1 shadow-lg;
+}
+
+/* Ledger-style hover: subtle light edge plus diagonal sweep */
+.ledger-hover-cell {
+  --ledger-hover-bg: rgb(16 16 16 / 0.025);
+  --ledger-hover-border: rgb(16 16 16 / 0.14);
+  --ledger-hover-highlight: rgb(255 255 255 / 0.72);
+  --ledger-hover-sweep: rgb(16 16 16 / 0.08);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.dark .ledger-hover-cell {
+  --ledger-hover-bg: rgb(255 255 255 / 0.035);
+  --ledger-hover-border: rgb(255 255 255 / 0.26);
+  --ledger-hover-highlight: rgb(255 255 255 / 0.2);
+  --ledger-hover-sweep: rgb(255 255 255 / 0.16);
+}
+
+.ledger-hover-cell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ledger-hover-cell::before,
+.ledger-hover-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 260ms ease,
+    transform 360ms ease;
+}
+
+.ledger-hover-cell::before {
+  border: 1px solid var(--ledger-hover-border);
+  box-shadow: inset 0 1px 0 var(--ledger-hover-highlight);
+}
+
+.ledger-hover-cell::after {
+  right: auto;
+  width: 45%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--ledger-hover-sweep),
+    transparent
+  );
+  transform: translateX(-140%) skewX(-16deg);
+}
+
+.ledger-hover-cell:hover,
+.ledger-hover-cell:focus-visible {
+  background-color: var(--ledger-hover-bg);
+  outline: none;
+}
+
+.ledger-hover-cell:hover::before,
+.ledger-hover-cell:focus-visible::before,
+.ledger-hover-cell:hover::after,
+.ledger-hover-cell:focus-visible::after {
+  opacity: 1;
+}
+
+.ledger-hover-cell:hover::after,
+.ledger-hover-cell:focus-visible::after {
+  transform: translateX(260%) skewX(-16deg);
+}
+
+.ledger-hover-arrow {
+  transition:
+    transform 220ms ease,
+    opacity 220ms ease;
+}
+
+.ledger-hover-cell:hover .ledger-hover-arrow,
+.ledger-hover-cell:focus-visible .ledger-hover-arrow {
+  transform: translateX(0.28rem);
+}
+
+.ledger-hover-kicker {
+  transition: color 220ms ease;
+}
+
+.ledger-hover-cell:hover .ledger-hover-kicker,
+.ledger-hover-cell:focus-visible .ledger-hover-kicker {
+  color: var(--color-warm-700);
+}
+
+.dark .ledger-hover-cell:hover .ledger-hover-kicker,
+.dark .ledger-hover-cell:focus-visible .ledger-hover-kicker {
+  color: var(--color-warm-400);
+}
+
+/* Gradient backgrounds */
+.bg-warm-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-warm-50) 0%,
+    var(--color-warm-100) 100%
+  );
+}
+
+.dark .bg-warm-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-dark-bg) 0%,
+    var(--color-dark-surface) 100%
+  );
+}
+
+/* Accent glow for CTA buttons */
+.glow-accent {
+  box-shadow: 0 4px 20px -4px rgba(99, 102, 241, 0.4);
+}
+
+.glow-accent:hover {
+  box-shadow: 0 8px 30px -4px rgba(99, 102, 241, 0.55);
+}
+
+/* Soft card styling */
+.card-soft {
+  @apply bg-white dark:bg-dark-surface rounded-lg border border-warm-200 dark:border-warm-800 transition-all duration-300;
+}
+
+.card-soft:hover {
+  @apply border-accent-300 dark:border-accent-700 shadow-lg shadow-warm-200/50 dark:shadow-accent-900/20;
+}

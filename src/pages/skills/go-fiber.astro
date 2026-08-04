@@ -1,0 +1,39 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BaseLayout from '~/components/BaseLayout.astro'
+import Footer from '~/components/Footer.astro'
+import SkillPage from '~/components/SkillPage.astro'
+
+const intro =
+  'I build high-performance backend services with Go and the Fiber web framework.'
+
+const delivered = [
+  'Built the <a href="/work/katalis">BPR Dana Mandiri PPOB API</a>, <a href="/work/katalis">Andalas Collection API</a>, and <a href="/work/katalis">OpenAPI Service</a> for mobile apps using Go Fiber.',
+  'Worked on infrastructure and platform deployments at <a href="/work/platon">Platon</a>, including app deployment integrated with Fly.io.',
+  'Earned certifications in Go (Intermediate) and Problem Solving (Basic), reflecting certified backend proficiency.',
+]
+
+const why =
+  'Go combines simplicity with performance, and Fiber gives it a fast, ergonomic HTTP layer. I use it for services that need to be efficient and reliable at scale.'
+
+const projects = [
+  { label: 'Katalis Kreasi Teknologi', href: '/work/katalis' },
+  { label: 'Platon', href: '/work/platon' },
+]
+---
+
+<Layout
+  title="Go Fiber | Muhamad Zainal Arifin"
+  description="Go Fiber experience building high-performance backend APIs and services."
+>
+  <BaseLayout>
+    <SkillPage
+      title="Go Fiber"
+      intro={intro}
+      delivered={delivered}
+      why={why}
+      projects={projects}
+    />
+    <Footer />
+  </BaseLayout>
+</Layout>

@@ -5,9 +5,12 @@ import sitemap from '@astrojs/sitemap'
 import expressiveCode from 'astro-expressive-code'
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 
+import netlify from '@astrojs/netlify';
+
 export default defineConfig({
   site: 'https://muhamadzain.me',
   output: 'static',
+
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp',
@@ -16,9 +19,11 @@ export default defineConfig({
       },
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   integrations: [
     expressiveCode({
       plugins: [pluginLineNumbers()],
@@ -63,4 +68,6 @@ export default defineConfig({
     mdx(),
     sitemap(),
   ],
+
+  adapter: netlify(),
 })

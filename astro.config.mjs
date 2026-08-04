@@ -10,7 +10,9 @@ import netlify from '@astrojs/netlify';
 export default defineConfig({
   site: 'https://muhamadzain.me',
   output: 'static',
-
+  session: {
+    driver: sessionDrivers.cookie()
+  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp',

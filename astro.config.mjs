@@ -5,14 +5,11 @@ import sitemap from '@astrojs/sitemap'
 import expressiveCode from 'astro-expressive-code'
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 
-import netlify from '@astrojs/netlify';
+import netlify from '@astrojs/netlify'
 
 export default defineConfig({
   site: 'https://muhamadzain.me',
   output: 'static',
-  session: {
-    driver: sessionDrivers.cookie()
-  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp',

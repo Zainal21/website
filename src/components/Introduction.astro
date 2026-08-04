@@ -1,6 +1,6 @@
 ---
 import LogoPersonal from '~/assets/images/1000414638.png'
-import { Image } from 'astro:assets';
+import { Image } from 'astro:assets'
 
 const labels = {
   available: 'Available',
@@ -38,7 +38,11 @@ const labels = {
         <div
           class="relative w-[140px] h-[140px] flex items-center justify-center rounded-2xl bg-warm-100 dark:bg-dark-surface shadow-lg ring-4 ring-warm-50 dark:ring-dark-bg"
         >
-          <Image src={LogoPersonal} alt="Profile picture" class="w-full h-full object-cover rounded-2xl" />
+          <Image
+            src={LogoPersonal}
+            alt="Profile picture"
+            class="w-full h-full object-cover rounded-2xl"
+          />
         </div>
         <!-- Available badge -->
         <div

@@ -1,4 +1,4 @@
-# [muhamadzain.me](https://muhamadzain.me)
+# [zainarief.my.id](https://zainarief.my.id)
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 

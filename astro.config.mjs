@@ -8,7 +8,7 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 import netlify from '@astrojs/netlify'
 
 export default defineConfig({
-  site: 'https://muhamadzain.me',
+  site: 'https://zainarief.my.id',
   output: 'static',
   image: {
     service: {

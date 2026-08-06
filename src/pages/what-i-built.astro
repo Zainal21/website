@@ -1,9 +1,43 @@
 ---
+import { Image } from 'astro:assets'
 import Layout from '~/layouts/Layout.astro'
 import BaseLayout from '~/components/BaseLayout.astro'
 import Footer from '~/components/Footer.astro'
 import Introduction from '~/components/Introduction.astro'
 import GithubIcon from '~/icons/GithubIcon.astro'
+
+const projectImages = import.meta.glob('~/assets/projects/*.png', {
+  eager: true,
+  import: 'default',
+})
+
+const projectTitles: Record<string, string> = {
+  'android-jtlexpress.png': 'JTLExpress Android',
+  'biometric-bik.png': 'Biometric BIK',
+  'biometrik.png': 'Biometric',
+  'cargosistem.png': 'Cargo Sistem',
+  'catatan-umkm.png': 'Catatan UMKM',
+  'jtlexpress.png': 'JTLExpress',
+  'kadin.png': 'KADIN',
+  'kejagung-dashboard.png': 'Kejagung Dashboard',
+  'satpol-pp-jogja.png': 'Satpol PP Jogja',
+  'school-complaint.png': 'School Complaint',
+  'sedo-tekenaja.png': 'Sedo Tekenaja',
+  'smkn2kra.png': 'SMKN 2 Kra',
+  'tata-ruang-magelang.png': 'Tata Ruang Magelang',
+  'tatangga.png': 'Tatangga',
+  'treeams.png': 'TREEAMS',
+}
+
+const projects = Object.entries(projectImages)
+  .map(([path, src]) => {
+    const filename = path.split('/').pop() ?? ''
+    return {
+      title: projectTitles[filename] ?? filename.replace('.png', ''),
+      src: src as ImageMetadata,
+    }
+  })
+  .sort((a, b) => a.title.localeCompare(b.title))
 ---
 
 <Layout title="What I Built | Muhamad Zainal Arifin">
@@ -54,6 +88,37 @@ import GithubIcon from '~/icons/GithubIcon.astro'
           <strong>Huniq Property Management</strong> – Property book management platform.
         </li>
       </ul>
+
+      <h2>Project Previews</h2>
+      <p>
+        A selection of screenshots from projects I've designed, built, and
+        shipped.
+      </p>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 not-prose">
+        {
+          projects.map((project) => (
+            <figure class="ledger-hover-cell group overflow-hidden rounded-2xl border border-warm-200 bg-white shadow-sm dark:border-warm-800 dark:bg-dark-surface dark:shadow-2xl dark:shadow-black/30">
+              <div class="aspect-video overflow-hidden bg-warm-100 dark:bg-dark-elevated">
+                <Image
+                  src={project.src}
+                  alt={`${project.title} preview`}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  widths={[480, 640, 960]}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <figcaption class="flex items-center justify-between px-4 py-3">
+                <span class="text-sm font-semibold text-warm-900 dark:text-warm-100">
+                  {project.title}
+                </span>
+                <span class="ledger-hover-arrow text-warm-400">→</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
 
       <h2>Open Source</h2>
       <p>

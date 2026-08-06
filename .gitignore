@@ -33,3 +33,4 @@ server.js
 
 # direnv
 .direnv/
+.netlify

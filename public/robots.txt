@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /imprint
 
-Sitemap: https://muhamadzain.me/sitemap.xml
+Sitemap: https://zainarief.my.id/sitemap.xml

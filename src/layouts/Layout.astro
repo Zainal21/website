@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions'
 import '../styles/global.css'
 import logoImage from '~/assets/images/logo.svg?url'
 
@@ -13,14 +14,14 @@ interface Props {
 const {
   title = 'Muhamad Zainal Arifin: Software Engineer',
   description = 'Muhamad Zainal Arifin is a Software Engineer (Backend Specialist) & DevOps Engineer based in Surakarta, Central Java, Indonesia.',
-  image = 'https://muhamadzain.me/logo.svg',
+  image = 'https://zainarief.my.id/logo.svg',
   ogType = 'profile',
   lang = 'en',
 } = Astro.props
 
 const currentPath = Astro.url.pathname
 const canonicalURL = new URL(currentPath, Astro.site)
-const siteUrl = Astro.site?.toString() || 'https://muhamadzain.me'
+const siteUrl = Astro.site?.toString() || 'https://zainarief.my.id'
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -52,13 +53,11 @@ const schema = [
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} class="dark">
   <head prefix="og: https://ogp.me/ns#">
-    <!-- Theme and animation initialization - runs before page renders -->
-    <script is:inline>
+    <!-- Animation initialization - runs before page renders and on each navigation -->
+    <script is:inline data-astro-rerun>
       ;(function () {
-        document.documentElement.classList.add('dark')
-
         // Skip animations if user has already visited this session
         if (sessionStorage.getItem('visited')) {
           document.documentElement.classList.add('animation-done')
@@ -67,6 +66,8 @@ const schema = [
         }
       })()
     </script>
+    <ClientRouter />
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 

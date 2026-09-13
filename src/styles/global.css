@@ -218,12 +218,14 @@ pre > code[data-line-numbers-max-digits='3'] > .line::before {
 body:has(#menu-toggle:checked) nav.mobile-menu {
   transform: scale(1) !important;
   opacity: 1 !important;
+  pointer-events: auto;
 }
 
 @media (max-width: 1279px) {
   nav.mobile-menu {
     transform: scale(0);
     opacity: 0;
+    pointer-events: none;
   }
 }
 

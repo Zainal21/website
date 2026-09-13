@@ -510,9 +510,8 @@ const labels = {
 
 <script is:inline>
   ;(() => {
-    const toggle = document.getElementById('menu-toggle')
-    const menu = document.getElementById('mobile-menu')
-    if (!toggle || !menu) return
+    const getToggle = () => document.getElementById('menu-toggle')
+    const getMenu = () => document.getElementById('mobile-menu')
 
     const shouldScroll = () => window.matchMedia('(max-width: 1279px)').matches
 
@@ -520,7 +519,8 @@ const labels = {
 
     const scrollToBottom = () => {
       if (!shouldScroll()) return
-      menu.scrollTop = menu.scrollHeight
+      const menu = getMenu()
+      if (menu) menu.scrollTop = menu.scrollHeight
     }
 
     const setBodyScroll = (locked, forcedScrollY) => {
@@ -560,30 +560,37 @@ const labels = {
       }
     }
 
-    const labels = Array.from(
-      document.querySelectorAll('label[for="menu-toggle"]'),
-    )
-    labels.forEach((label) => {
-      label.addEventListener('pointerdown', () => {
-        if (!toggle.checked) {
-          scrollYBeforeOpen =
-            window.scrollY || document.documentElement.scrollTop
+    const setupListeners = () => {
+      const toggle = getToggle()
+      if (!toggle) return
+
+      const labels = Array.from(
+        document.querySelectorAll('label[for="menu-toggle"]'),
+      )
+      labels.forEach((label) => {
+        label.addEventListener('pointerdown', () => {
+          if (!toggle.checked) {
+            scrollYBeforeOpen =
+              window.scrollY || document.documentElement.scrollTop
+          }
+        })
+      })
+
+      toggle.addEventListener('change', () => {
+        const isOpen = toggle.checked
+        setBodyScroll(isOpen && shouldScroll(), scrollYBeforeOpen)
+        if (isOpen) {
+          requestAnimationFrame(scrollToBottom)
         }
       })
-    })
+    }
 
-    setBodyScroll(toggle.checked && shouldScroll(), scrollYBeforeOpen)
-
-    toggle.addEventListener('change', () => {
-      const isOpen = toggle.checked
-      setBodyScroll(isOpen && shouldScroll(), scrollYBeforeOpen)
-      if (isOpen) {
-        requestAnimationFrame(scrollToBottom)
-      }
-    })
+    setBodyScroll(getToggle()?.checked && shouldScroll(), scrollYBeforeOpen)
+    setupListeners()
 
     window.addEventListener('resize', () => {
-      if (!toggle.checked) return
+      const toggle = getToggle()
+      if (!toggle?.checked) return
       if (!shouldScroll()) {
         setBodyScroll(false)
         return
@@ -592,8 +599,8 @@ const labels = {
     })
 
     document.addEventListener('astro:after-swap', () => {
-      if (!toggle.checked) return
-      setBodyScroll(shouldScroll())
+      setBodyScroll(false)
+      setupListeners()
     })
   })()
 </script>

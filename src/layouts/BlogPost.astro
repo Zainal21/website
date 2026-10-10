@@ -8,6 +8,7 @@ interface Props {
     title: string
     description: string
     published: Date
+    category?: string
     image?: string
   }
 }
@@ -80,6 +81,11 @@ const dateFormatter = new Intl.DateTimeFormat(labels.locale, {
           >
             {dateFormatter.format(frontmatter.published)}
           </time>
+          {frontmatter.category && (
+            <span class="ml-2 inline-flex items-center rounded-full border border-warm-200 bg-warm-100 px-2.5 py-0.5 text-xs font-medium uppercase tracking-wide text-warm-600 dark:border-warm-800 dark:bg-dark-elevated dark:text-warm-300">
+              {frontmatter.category}
+            </span>
+          )}
           <h1
             class="text-3xl sm:text-4xl font-bold text-warm-900 dark:text-white mt-2 leading-tight"
           >

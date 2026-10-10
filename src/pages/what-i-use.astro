@@ -2,109 +2,116 @@
 import Layout from '~/layouts/Layout.astro'
 import BaseLayout from '~/components/BaseLayout.astro'
 import Footer from '~/components/Footer.astro'
-import Introduction from '~/components/Introduction.astro'
+
+const getIconUrl = (slug: string) => `https://cdn.simpleicons.org/${slug}`
+
+const gearGroups = [
+  {
+    label: 'Hardware',
+    items: [
+      { name: 'Macbook Air M1', desc: 'Daily driver', slug: 'apple' },
+      {
+        name: 'Desktop PC',
+        desc: 'Heavy tasks & local lab',
+        svg: 'pc',
+      },
+      {
+        name: 'Rexus Daixa',
+        desc: 'Mechanical keyboard, tactile',
+        svg: 'keyboard',
+      },
+      { name: 'STB HG680P', desc: 'Mini home lab (Linux ARM)', slug: 'linux' },
+    ],
+  },
+  {
+    label: 'Development Environment',
+    items: [
+      { name: 'VS Code', desc: 'Primary code editor', slug: 'visualstudiocode', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg' },
+      { name: 'LazyVim', desc: 'Secondary code editor', slug: 'neovim' },
+      { name: 'Git', desc: 'Version control (with gh)', slug: 'git' },
+      { name: 'Docker', desc: 'Containerized local development', slug: 'docker' },
+    ],
+  },
+  {
+    label: 'Dev Tools',
+    items: [
+      { name: 'Postman', desc: 'API testing & docs', slug: 'postman' },
+      { name: 'Swagger', desc: 'API contract design', slug: 'swagger' },
+    ],
+  },
+  {
+    label: 'AI Agent Tools',
+    items: [
+      { name: 'Claude Code', desc: 'Terminal AI agent', slug: 'anthropic' },
+      { name: 'OpenCode', desc: 'Open-source AI coding agent', slug: 'opencode' },
+      { name: 'GitHub Copilot', desc: 'In-editor autocomplete', slug: 'githubcopilot' },
+    ],
+  },
+  {
+    label: 'Productivity',
+    items: [
+      { name: 'Obsidian', desc: 'Markdown notes (local-first)', slug: 'obsidian' },
+      { name: 'Notion', desc: 'Project docs & tracking', slug: 'notion' },
+    ],
+  },
+]
 ---
 
 <Layout title="What I Use | Muhamad Zainal Arifin">
   <BaseLayout>
-    <Introduction />
+    <section class="animate-fade-in-up opacity-0 mt-12">
+      <h1 class="text-3xl sm:text-4xl font-display font-bold text-warm-900 dark:text-warm-100">
+        What I Use
+      </h1>
+    </section>
 
-    <article class="prose lg:prose-lg mt-12">
-      <h1>What I Use</h1>
+    <div class="mt-10 space-y-12">
+      {
+        gearGroups.map((group) => (
+          <section class="animate-fade-in-up opacity-0">
+            <h2 class="text-xs font-semibold uppercase tracking-[0.22em] text-warm-500 dark:text-warm-500 border-b border-warm-200 dark:border-warm-800 pb-3">
+              {group.label}
+            </h2>
 
-      <h2>Hardware</h2>
-      <ul>
-        <li>
-          <strong>Windows / Linux laptop</strong> – My daily driver for development
-        </li>
-        <li>
-          Mechanical keyboard – With tactile switches and programmable layers
-        </li>
-      </ul>
-
-      <h2>Development Environment</h2>
-      <ul>
-        <li>
-          <a href="https://code.visualstudio.com">VS Code</a> – Primary code editor
-        </li>
-        <li>
-          <a href="https://www.jetbrains.com">JetBrains IDEs</a> – PhpStorm for Laravel
-          work and IntelliJ IDEA / Android Studio for Kotlin
-        </li>
-        <li>
-          <a href="https://git-scm.com">Git</a> – Version control, with
-          <a href="https://cli.github.com">gh</a> for GitHub workflows
-        </li>
-        <li>
-          <a href="https://www.docker.com">Docker</a> – Containerized local development
-        </li>
-      </ul>
-
-      <h2>Backend & Databases</h2>
-      <ul>
-        <li>
-          <a href="https://www.mysql.com">MySQL</a> /
-          <a href="https://mariadb.org">MariaDB</a> – Primary relational databases
-        </li>
-        <li>
-          <a href="https://www.postgresql.org">PostgreSQL</a> – For Go and Node.js
-          services
-        </li>
-        <li>
-          <a href="https://redis.io">Redis</a> – Caching and queues
-        </li>
-        <li>
-          <a href="https://tableplus.com">TablePlus</a> – Database GUI for PostgreSQL,
-          MySQL, Redis, and more
-        </li>
-      </ul>
-
-      <h2>Dev Tools</h2>
-      <ul>
-        <li>
-          <a href="https://www.postman.com">Postman</a> – API testing and documentation
-        </li>
-        <li>
-          <a href="https://insomnia.rest">Insomnia</a> – REST/GraphQL client
-        </li>
-        <li>
-          <a href="https://swagger.io">Swagger / OpenAPI</a> – API contract design
-        </li>
-      </ul>
-
-      <h2>DevOps & Infrastructure</h2>
-      <ul>
-        <li>
-          <a href="https://www.docker.com">Docker</a> /
-          <a href="https://kubernetes.io">Kubernetes</a> – Containerization and orchestration
-        </li>
-        <li>
-          <a href="https://docs.github.com/en/actions">GitHub Actions</a> – CI/CD
-          pipelines
-        </li>
-        <li>
-          <a href="https://nginx.org">Nginx</a> – Reverse proxy and web server
-        </li>
-        <li>
-          <a href="https://www.fly.io">Fly.io</a> – Platform for deploying applications
-        </li>
-        <li>
-          <a href="https://grafana.com">Grafana</a> /
-          <a href="https://prometheus.io">Prometheus</a> – Monitoring and observability
-        </li>
-      </ul>
-
-      <h2>Productivity</h2>
-      <ul>
-        <li>
-          <a href="https://obsidian.md">Obsidian</a> – Note-taking with markdown
-          and local-first storage
-        </li>
-        <li>
-          <a href="https://www.notion.com">Notion</a> – Project notes and documentation
-        </li>
-      </ul>
-    </article>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {group.items.map((item) => (
+                <div class="flex items-center gap-3 p-4 rounded-xl border border-warm-200 dark:border-warm-800 bg-white dark:bg-dark-surface hover-lift">
+                  <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-warm-50 dark:bg-dark-elevated rounded-lg">
+                    {item.svg === 'pc' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-warm-700 dark:text-warm-300">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                      </svg>
+                    )}
+                    {item.svg === 'keyboard' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-warm-700 dark:text-warm-300">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18h12a2.25 2.25 0 002.25-2.25V7.5A2.25 2.25 0 0018 5.25H6A2.25 2.25 0 003.75 7.5v8.25A2.25 2.25 0 006 18zM7.5 10.5h.008v.008H7.5V10.5zm3 0h.008v.008h-.008V10.5zm3 0h.008v.008h-.008V10.5zm3 0h.008v.008h-.008V10.5zm-6 3h.008v.008h-.008V13.5zm3 0h.008v.008h-.008V13.5zm3 0h.008v.008h-.008V13.5z" />
+                      </svg>
+                    )}
+                    {!item.svg && (
+                      <img
+                        src={item.img || getIconUrl(item.slug)}
+                        alt={item.name}
+                        class="w-6 h-6 dark:invert dark:opacity-90"
+                        loading="lazy"
+                        onerror="this.style.display='none'"
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-semibold text-warm-900 dark:text-warm-100 line-clamp-1">
+                      {item.name}
+                    </h3>
+                    <p class="text-xs text-warm-500 dark:text-warm-400 line-clamp-1 mt-0.5">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
 
     <Footer />
   </BaseLayout>

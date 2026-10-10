@@ -3,74 +3,136 @@ import Layout from '~/layouts/Layout.astro'
 import BaseLayout from '~/components/BaseLayout.astro'
 import Footer from '~/components/Footer.astro'
 
-const skills = [
+// Helper to get Simple Icons URL (with auto-theming fallback if empty icon string)
+const getIconUrl = (slug: string) => `https://cdn.simpleicons.org/${slug}`
+
+const skillGroups = [
   {
-    title: 'Laravel',
-    description:
-      'Web applications, APIs, ERP and POS systems with maintainable structure.',
-    href: '/skills/laravel',
+    label: 'Languages',
+    skills: [
+      { name: 'HTML', slug: 'html5' },
+      { name: 'CSS', slug: 'css' },
+      { name: 'JavaScript', slug: 'javascript' },
+      { name: 'TypeScript', slug: 'typescript' },
+      { name: 'Markdown', slug: 'markdown' },
+      { name: 'PHP', slug: 'php' },
+      { name: 'Go', slug: 'go' },
+      { name: 'Kotlin', slug: 'kotlin' },
+      { name: 'Dart', slug: 'dart' },
+    ],
   },
   {
-    title: 'CodeIgniter',
-    description: 'Lean MVC applications for logistics and government projects.',
-    href: '/skills/codeigniter',
+    label: 'Backend',
+    skills: [
+      { name: 'Laravel', slug: 'laravel' },
+      { name: 'Livewire', slug: 'livewire' },
+      { name: 'CodeIgniter', slug: 'codeigniter' },
+      { name: 'Express.js', slug: 'express' },
+      { name: 'NestJS', slug: 'nestjs' },
+      { name: 'Go Fiber', slug: 'go' }, // no fiber icon, Go fallback
+      { name: 'RabbitMQ', slug: 'rabbitmq' },
+    ],
   },
   {
-    title: 'Express.js',
-    description: 'Fast, scalable REST APIs and backend services on Node.js.',
-    href: '/skills/express-js',
+    label: 'Frontend',
+    skills: [
+      { name: 'React.js', slug: 'react' },
+      { name: 'Next.js', slug: 'nextdotjs' },
+      { name: 'Tailwind CSS', slug: 'tailwindcss' },
+      { name: 'Bootstrap', slug: 'bootstrap' },
+      { name: 'jQuery', slug: 'jquery' },
+      { name: 'Ionic', slug: 'ionic' },
+      { name: 'Capacitor', slug: 'capacitor' },
+    ],
   },
   {
-    title: 'NestJS',
-    description: 'Structured, testable TypeScript backend services.',
-    href: '/skills/nestjs',
+    label: 'Mobile',
+    skills: [
+      { name: 'Flutter', slug: 'flutter' },
+    ],
   },
   {
-    title: 'Go Fiber',
-    description: 'High-performance HTTP services with Go.',
-    href: '/skills/go-fiber',
+    label: 'Databases',
+    skills: [
+      { name: 'MySQL', slug: 'mysql' },
+      { name: 'PostgreSQL', slug: 'postgresql' },
+      { name: 'SQL Server', slug: 'microsoftsqlserver' },
+      { name: 'MongoDB', slug: 'mongodb' },
+      { name: 'Redis', slug: 'redis' },
+      { name: 'Elasticsearch', slug: 'elasticsearch' },
+      { name: 'ScyllaDB', slug: 'scylladb' },
+    ],
   },
   {
-    title: 'React.js',
-    description: 'Modern frontend interfaces and admin dashboards.',
-    href: '/skills/react',
+    label: 'DevOps & Cloud',
+    skills: [
+      { name: 'Shell Script', slug: 'gnubash' },
+      { name: 'Docker', slug: 'docker' },
+      { name: 'Docker Swarm', slug: 'docker' },
+      { name: 'Kubernetes', slug: 'kubernetes' },
+      { name: 'Terraform', slug: 'terraform' },
+      { name: 'Ansible', slug: 'ansible' },
+      { name: 'GitHub Actions', slug: 'githubactions' },
+      { name: 'GitLab CI', slug: 'gitlab' },
+      { name: 'Kong Gateway', slug: 'kong' },
+      { name: 'Prometheus', slug: 'prometheus' },
+      { name: 'Grafana', slug: 'grafana' },
+      { name: 'Graylog', slug: 'graylog' },
+      { name: 'GCP', slug: 'googlecloud' },
+      { name: 'Alibaba Cloud', slug: 'alibabacloud' },
+      { name: 'Biznet Gio', slug: 'cloudfoundry' }, // generic cloud fallback
+    ],
   },
   {
-    title: 'Kotlin',
-    description: 'Native Android apps for logistics, banking, and business.',
-    href: '/skills/kotlin',
+    label: 'Object Storage',
+    skills: [
+      { name: 'MinIO', slug: 'minio' },
+      { name: 'RustFS', slug: 'rust' }, // no official icon, Rust fallback
+      { name: 'Cloudflare R2', slug: 'cloudflare' },
+      { name: 'AWS S3', slug: 'amazons3', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original.svg' },
+      { name: 'Aliyun OSS', slug: 'alibabacloud' },
+    ],
   },
   {
-    title: 'Flutter',
-    description: 'Cross-platform mobile apps from a single codebase.',
-    href: '/skills/flutter',
+    label: 'AI Agent Tools',
+    skills: [
+      { name: 'Claude Code', slug: 'anthropic' },
+      { name: 'OpenCode', slug: 'opencode' },
+      { name: 'Antigravity', slug: 'googlegemini' },
+      { name: 'Ollama', slug: 'ollama' },
+    ],
   },
   {
-    title: 'Go',
-    description: 'Simple, fast, and maintainable backend services.',
-    href: '/skills/go',
+    label: 'Productivity',
+    skills: [
+      { name: 'Jira', slug: 'jira' },
+      { name: 'Trello', slug: 'trello' },
+      { name: 'Notion', slug: 'notion' },
+    ],
   },
   {
-    title: 'DevOps',
-    description: 'Infrastructure, monitoring, and automated deployments.',
-    href: '/skills/devops',
+    label: 'Development Tools',
+    skills: [
+      { name: 'Git', slug: 'git' },
+      { name: 'VS Code', slug: 'visualstudiocode', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg' },
+      { name: 'LazyVim', slug: 'neovim' }, // LazyVim is a Neovim config
+      { name: 'Android Studio', slug: 'androidstudio' },
+    ],
   },
   {
-    title: 'CI/CD',
-    description: 'Automated build, test, and release pipelines.',
-    href: '/skills/ci-cd',
-  },
-  {
-    title: 'MySQL',
-    description: 'Database design and optimization for scale.',
-    href: '/skills/mysql',
+    label: 'Version Control',
+    skills: [
+      { name: 'GitHub', slug: 'github' },
+      { name: 'GitLab', slug: 'gitlab' },
+      { name: 'Bitbucket', slug: 'bitbucket' },
+    ],
   },
 ]
 ---
 
 <Layout
   title="Skills | Muhamad Zainal Arifin"
-  description="Skill overview with short summaries and links to detailed project highlights."
+  description="Skill overview grouped by backend, frontend, mobile, databases, and DevOps."
 >
   <BaseLayout>
     <section class="animate-fade-in-up opacity-0">
@@ -80,27 +142,37 @@ const skills = [
         Skills
       </h1>
       <p class="text-lg text-warm-600 dark:text-warm-400 mt-3 leading-relaxed">
-        A quick overview of the areas I work in most. Each skill links to a
-        short summary of past projects and contributions.
+        A quick overview of the stack I work with, grouped by area.
       </p>
     </section>
 
-    <div class="grid sm:grid-cols-2 gap-4 mt-10">
+    <div class="mt-10 space-y-12">
       {
-        skills.map((skill, index) => (
-          <a
-            href={skill.href}
-            class={`card-soft p-5 group hover-lift animate-fade-in-up opacity-0 stagger-${
-              index + 1
-            }`}
-          >
-            <h3 class="text-lg font-semibold text-warm-900 dark:text-warm-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
-              {skill.title}
-            </h3>
-            <p class="text-warm-600 dark:text-warm-400 mt-2">
-              {skill.description}
-            </p>
-          </a>
+        skillGroups.map((group) => (
+          <section class="animate-fade-in-up opacity-0">
+            <h2 class="text-xs font-semibold uppercase tracking-[0.22em] text-warm-500 dark:text-warm-500 border-b border-warm-200 dark:border-warm-800 pb-3">
+              {group.label}
+            </h2>
+
+            <div class="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {group.skills.map((skill) => (
+                <div class="flex items-center gap-3 p-3 rounded-xl border border-warm-200 dark:border-warm-800 bg-white dark:bg-dark-surface hover-lift">
+                  <div class="w-8 h-8 shrink-0 flex items-center justify-center bg-warm-50 dark:bg-dark-elevated rounded-lg">
+                    <img
+                      src={skill.img || getIconUrl(skill.slug)}
+                      alt={skill.name}
+                      class="w-5 h-5 dark:invert dark:opacity-90"
+                      loading="lazy"
+                      onerror="this.style.display='none'"
+                    />
+                  </div>
+                  <span class="text-sm font-semibold text-warm-900 dark:text-warm-100 line-clamp-1">
+                    {skill.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
         ))
       }
     </div>

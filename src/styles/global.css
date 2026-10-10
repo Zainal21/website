@@ -13,38 +13,38 @@
   --font-article: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-  /* Pure black & white base */
+  /* Pure black & white base - simplified */
   --color-warm-50: #ffffff;
   --color-warm-100: #fafafa;
-  --color-warm-200: #f0f0f0;
-  --color-warm-300: #e0e0e0;
-  --color-warm-400: #b0b0b0;
-  --color-warm-500: #808080;
-  --color-warm-600: #606060;
+  --color-warm-200: #eaeaea;
+  --color-warm-300: #d4d4d4;
+  --color-warm-400: #a3a3a3;
+  --color-warm-500: #737373;
+  --color-warm-600: #525252;
   --color-warm-700: #404040;
-  --color-warm-800: #202020;
-  --color-warm-900: #101010;
+  --color-warm-800: #262626;
+  --color-warm-900: #171717;
 
-  /* Accent - electric indigo */
-  --color-accent-50: #eef2ff;
-  --color-accent-100: #e0e7ff;
-  --color-accent-200: #c7d2fe;
-  --color-accent-300: #a5b4fc;
-  --color-accent-400: #818cf8;
-  --color-accent-500: #6366f1;
-  --color-accent-600: #4f46e5;
-  --color-accent-700: #4338ca;
-  --color-accent-800: #3730a3;
-  --color-accent-900: #312e81;
+  /* Accent - neutral dark instead of indigo for cleaner look */
+  --color-accent-50: #fafafa;
+  --color-accent-100: #f5f5f5;
+  --color-accent-200: #e5e5e5;
+  --color-accent-300: #d4d4d4;
+  --color-accent-400: #a3a3a3;
+  --color-accent-500: #525252;
+  --color-accent-600: #404040;
+  --color-accent-700: #262626;
+  --color-accent-800: #171717;
+  --color-accent-900: #0a0a0a;
 
   /* Dark mode - true black */
   --color-dark-bg: #000000;
   --color-dark-surface: #0a0a0a;
-  --color-dark-elevated: #141414;
+  --color-dark-elevated: #171717;
 }
 
 a.button {
-  @apply inline-block rounded-lg border border-warm-200 bg-white px-6 py-2.5 shadow-sm transition-all duration-300 hover:shadow-md hover:border-accent-400 hover:-translate-y-0.5 dark:bg-dark-surface dark:border-warm-800 dark:text-warm-100 dark:hover:border-accent-500;
+  @apply inline-block rounded-lg border border-warm-200 bg-white px-5 py-2 text-sm font-medium text-warm-700 transition-colors hover:border-warm-400 hover:text-warm-900 dark:bg-dark-surface dark:border-warm-800 dark:text-warm-300 dark:hover:border-warm-600 dark:hover:text-white;
 }
 
 h1 {
@@ -71,7 +71,7 @@ h6 {
 }
 
 .expressive-code .frame {
-  border-color: #6366f1 !important;
+  border-color: #262626 !important;
 }
 
 @media (min-width: 640px) {
@@ -97,21 +97,22 @@ pre code {
   letter-spacing: -0.01em;
 }
 
-/* Syntax highlighting - restrained, monochrome-forward */
+/* Syntax highlighting - monochrome, restrained */
 .c-fg {
   color: #d4d4d4;
 }
 .c-kw {
-  color: #818cf8;
+  color: #e5e5e5;
+  font-weight: 500;
 }
 .c-cn {
-  color: #a5b4fc;
+  color: #a3a3a3;
 }
 .c-pm {
-  color: #e5e5e5;
+  color: #a3a3a3;
 }
 .c-fn {
-  color: #c7d2fe;
+  color: #f5f5f5;
 }
 .c-st {
   color: #a3a3a3;
@@ -291,101 +292,41 @@ body:has(#menu-toggle:checked) nav.mobile-menu {
 
 /* Smooth hover lift effect */
 .hover-lift {
-  @apply transition-all duration-300 ease-out;
+  @apply transition-colors duration-200;
 }
 
 .hover-lift:hover {
-  @apply -translate-y-1 shadow-lg;
+  @apply border-warm-400 dark:border-warm-600;
 }
 
-/* Ledger-style hover: subtle light edge plus diagonal sweep */
+/* Row hover: subtle background shift, no decorative sweep */
 .ledger-hover-cell {
-  --ledger-hover-bg: rgb(16 16 16 / 0.025);
-  --ledger-hover-border: rgb(16 16 16 / 0.14);
-  --ledger-hover-highlight: rgb(255 255 255 / 0.72);
-  --ledger-hover-sweep: rgb(16 16 16 / 0.08);
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  transition:
-    background-color 220ms ease,
-    border-color 220ms ease,
-    box-shadow 220ms ease;
-}
-
-.dark .ledger-hover-cell {
-  --ledger-hover-bg: rgb(255 255 255 / 0.035);
-  --ledger-hover-border: rgb(255 255 255 / 0.26);
-  --ledger-hover-highlight: rgb(255 255 255 / 0.2);
-  --ledger-hover-sweep: rgb(255 255 255 / 0.16);
-}
-
-.ledger-hover-cell > * {
-  position: relative;
-  z-index: 1;
-}
-
-.ledger-hover-cell::before,
-.ledger-hover-cell::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition:
-    opacity 260ms ease,
-    transform 360ms ease;
-}
-
-.ledger-hover-cell::before {
-  border: 1px solid var(--ledger-hover-border);
-  box-shadow: inset 0 1px 0 var(--ledger-hover-highlight);
-}
-
-.ledger-hover-cell::after {
-  right: auto;
-  width: 45%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--ledger-hover-sweep),
-    transparent
-  );
-  transform: translateX(-140%) skewX(-16deg);
+  transition: background-color 180ms ease;
 }
 
 .ledger-hover-cell:hover,
 .ledger-hover-cell:focus-visible {
-  background-color: var(--ledger-hover-bg);
+  background-color: rgb(16 16 16 / 0.03);
   outline: none;
 }
 
-.ledger-hover-cell:hover::before,
-.ledger-hover-cell:focus-visible::before,
-.ledger-hover-cell:hover::after,
-.ledger-hover-cell:focus-visible::after {
-  opacity: 1;
-}
-
-.ledger-hover-cell:hover::after,
-.ledger-hover-cell:focus-visible::after {
-  transform: translateX(260%) skewX(-16deg);
+.dark .ledger-hover-cell:hover,
+.dark .ledger-hover-cell:focus-visible {
+  background-color: rgb(255 255 255 / 0.04);
 }
 
 .ledger-hover-arrow {
-  transition:
-    transform 220ms ease,
-    opacity 220ms ease;
+  transition: transform 180ms ease;
 }
 
 .ledger-hover-cell:hover .ledger-hover-arrow,
 .ledger-hover-cell:focus-visible .ledger-hover-arrow {
-  transform: translateX(0.28rem);
+  transform: translateX(0.2rem);
 }
 
 .ledger-hover-kicker {
-  transition: color 220ms ease;
+  transition: color 180ms ease;
 }
 
 .ledger-hover-cell:hover .ledger-hover-kicker,
@@ -417,18 +358,18 @@ body:has(#menu-toggle:checked) nav.mobile-menu {
 
 /* Accent glow for CTA buttons */
 .glow-accent {
-  box-shadow: 0 4px 20px -4px rgba(99, 102, 241, 0.4);
+  box-shadow: none;
 }
 
 .glow-accent:hover {
-  box-shadow: 0 8px 30px -4px rgba(99, 102, 241, 0.55);
+  box-shadow: none;
 }
 
 /* Soft card styling */
 .card-soft {
-  @apply bg-white dark:bg-dark-surface rounded-lg border border-warm-200 dark:border-warm-800 transition-all duration-300;
+  @apply bg-white dark:bg-dark-surface rounded-xl border border-warm-200 dark:border-warm-800 transition-colors duration-200;
 }
 
 .card-soft:hover {
-  @apply border-accent-300 dark:border-accent-700 shadow-lg shadow-warm-200/50 dark:shadow-accent-900/20;
+  @apply border-warm-400 dark:border-warm-600;
 }

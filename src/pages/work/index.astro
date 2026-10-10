@@ -13,7 +13,7 @@ const companies = [
     location: 'Spring, TX',
     description:
       'Built SaaS platforms including property management and invoicing systems, plus an eKYC service with OCR and liveness detection.',
-    tags: ['Laravel', 'Express.js', 'React.js', 'Database'],
+    tags: ['Laravel', 'Express.js', 'React.js', 'MariaDB', 'DevOps', 'Golang', 'RabbitMQ', 'Docker'],
   },
   {
     name: 'Katalis Kreasi Teknologi',
@@ -24,7 +24,7 @@ const companies = [
     location: 'Yogyakarta, Indonesia',
     description:
       'Designed ERP and POS systems for jewelry, banking services for BPR Dana Mandiri, and school monitoring apps — spanning backend, database architecture, and mobile.',
-    tags: ['Laravel', 'Go Fiber', 'Kotlin', 'MySQL'],
+    tags: ['Laravel', 'MariaDB', 'DevOps'],
   },
   {
     name: 'Platon (Part-time / Freelance)',
@@ -35,7 +35,7 @@ const companies = [
     location: 'South Jakarta, Indonesia',
     description:
       'Built a SaaS ads platform supporting 5+ client projects, improved application performance by up to 40%, and handled infrastructure and deployments.',
-    tags: ['NestJS', 'Go', 'DevOps', 'Fly.io'],
+    tags: ['Laravel', 'NextJS', 'DevOps', 'Fly.io'],
   },
   {
     name: 'Linkpos Digital Kreatif (Part-time / Freelance)',
@@ -46,7 +46,7 @@ const companies = [
     location: 'Indonesia',
     description:
       'Mobile engineering work focused on cross-platform application development.',
-    tags: ['Flutter', 'Mobile'],
+    tags: ['Flutter', 'Mobile', 'Laravel'],
   },
   {
     name: 'TekenAja!',
@@ -57,7 +57,7 @@ const companies = [
     location: 'South Jakarta, Indonesia',
     description:
       'Key member of the outsourcing team for OXY Creative, building a SaaS eKYC platform with biometric verification and identity management.',
-    tags: ['Express.js', 'eKYC', 'Biometric'],
+    tags: ['Laravel', 'Express.js', 'React.js', 'MariaDB', 'DevOps', 'Golang', 'RabbitMQ', 'Docker'],
   },
   {
     name: 'CV. Cipta Karya Infotika (Cikajogja)',
@@ -68,7 +68,7 @@ const companies = [
     location: 'Sleman, Indonesia',
     description:
       'Delivered logistics dashboards, government information systems, and Android apps for JTLExpress, DKExpress, and public services.',
-    tags: ['CodeIgniter', 'Laravel', 'Kotlin', 'MySQL'],
+    tags: ['CodeIgniter', 'Lumen', 'Kotlin', 'MariaDB', 'PostgreSQL'],
   },
   {
     name: 'Kadang Koding Indonesia',
@@ -79,7 +79,7 @@ const companies = [
     location: 'Surakarta, Indonesia',
     description:
       'Early full-stack web development experience — database design, backend logic, and application optimization.',
-    tags: ['Web Development', 'CodeIgniter', 'Database'],
+    tags: ['Laravel', 'CodeIgniter', 'MariaDB'],
   },
 ]
 ---
@@ -120,10 +120,10 @@ const companies = [
                     class="h-12 w-auto max-w-28 object-contain rounded-md shrink-0 shadow-sm"
                   />
                   <div>
-                    <h3 class="text-lg font-semibold text-warm-900 dark:text-warm-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+                    <h3 class="text-lg font-semibold text-warm-900 dark:text-warm-100">
                       {company.name}
                     </h3>
-                    <p class="mt-1 text-sm font-medium text-accent-600 dark:text-accent-400">
+                    <p class="mt-1 text-sm font-medium text-warm-500 dark:text-warm-400">
                       {company.role}
                     </p>
                   </div>

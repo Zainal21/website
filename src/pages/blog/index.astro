@@ -15,6 +15,8 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   dateStyle: 'medium',
 })
 
+const categories = [...new Set(posts.map((p) => p.data.category))].sort()
+
 // Group posts by year
 const postsByYear = sortedPosts.reduce(
   (acc: Record<string, BlogPost[]>, post: BlogPost) => {
@@ -30,7 +32,7 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
 
 <Layout
   title="Blog | Muhamad Zainal Arifin"
-  description="Thoughts on software development, backend engineering, DevOps, and the tools I use."
+  description="Thoughts on software development, backend engineering, DevOps, book reviews, and the tools I use."
 >
   <BaseLayout>
     <!-- Header -->
@@ -41,17 +43,36 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
         Blog
       </h1>
       <p class="text-lg text-warm-600 dark:text-warm-400 mt-3 leading-relaxed">
-        Thoughts on software development, backend engineering, DevOps, and the
-        tools I use. Mostly notes to my future self.
+        Thoughts on software development, book reviews, and life.
       </p>
+
+      <!-- Category filter -->
+      <div class="mt-6 flex flex-wrap gap-2">
+        <button
+          data-cat-filter="all"
+          class="cat-filter-btn rounded-full border border-warm-900 px-3.5 py-1.5 text-sm font-medium text-white bg-warm-900 dark:border-warm-100 dark:bg-warm-100 dark:text-warm-900 transition-colors cursor-pointer"
+        >
+          All
+        </button>
+        {
+          categories.map((cat) => (
+            <button
+              data-cat-filter={cat}
+              class="cat-filter-btn rounded-full border border-warm-200 bg-white px-3.5 py-1.5 text-sm font-medium text-warm-600 hover:border-warm-400 transition-colors cursor-pointer dark:border-warm-800 dark:bg-dark-surface dark:text-warm-300 dark:hover:border-warm-600"
+            >
+              {cat}
+            </button>
+          ))
+        }
+      </div>
     </section>
 
     <!-- Posts grouped by year -->
-    <div class="mt-12 space-y-12">
+    <div class="mt-10 space-y-12" id="blog-groups">
       {
         years.map((year, yearIndex) => (
           <section
-            class="animate-fade-in-up opacity-0"
+            class="animate-fade-in-up opacity-0 blog-group"
             style={`animation-delay: ${0.1 + yearIndex * 0.05}s`}
           >
             <div class="flex items-center gap-4 mb-6">
@@ -67,9 +88,9 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
 
             <ul class="space-y-3">
               {postsByYear[year].map((post: BlogPost) => (
-                <li>
+                <li data-post-category={post.data.category}>
                   <a
-                    href={`/blog/${post.slug}`}
+                    href={`/blog/${post.id}`}
                     class="card-soft p-4 sm:p-5 flex flex-col sm:flex-row gap-3 sm:gap-6 sm:items-center group hover-lift block"
                   >
                     <time
@@ -79,7 +100,17 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
                       {dateFormatter.format(post.data.published)}
                     </time>
                     <div class="flex-1 min-w-0">
-                      <h3 class="font-semibold text-warm-900 dark:text-warm-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors line-clamp-2">
+                      <div class="flex items-center gap-2">
+                        <button
+                          type="button"
+                          data-badge-cat={post.data.category}
+                          class="cursor-pointer inline-flex items-center rounded-full border border-warm-200 bg-warm-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-warm-600 transition-colors hover:border-warm-400 dark:border-warm-800 dark:bg-dark-elevated dark:text-warm-300 dark:hover:border-warm-600"
+                          title={`Filter by ${post.data.category}`}
+                        >
+                          {post.data.category}
+                        </button>
+                      </div>
+                      <h3 class="font-semibold text-warm-900 dark:text-warm-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors line-clamp-2 mt-1">
                         {post.data.title}
                       </h3>
                       {post.data.description && (
@@ -111,7 +142,7 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
       }
     </div>
 
-    <!-- Empty state (in case there are no posts) -->
+    <!-- Empty state -->
     {
       sortedPosts.length === 0 && (
         <div class="text-center py-16">
@@ -141,3 +172,53 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
     <Footer />
   </BaseLayout>
 </Layout>
+
+<script>
+  const buttons = Array.from(document.querySelectorAll('[data-cat-filter]'))
+  const items = Array.from(document.querySelectorAll('[data-post-category]'))
+
+  const select = (btn: HTMLElement) => {
+    const cat = btn.getAttribute('data-cat-filter')
+    buttons.forEach((b) => {
+      const active = b === btn
+      // Apply active styles via class toggles (default vs selected)
+      b.classList.toggle(
+        'border-warm-900',
+        active,
+      )
+      b.classList.toggle('bg-warm-900', active)
+      b.classList.toggle('text-white', active)
+      b.classList.toggle('dark:border-warm-100', active)
+      b.classList.toggle('dark:bg-warm-100', active)
+      b.classList.toggle('dark:text-warm-900', active)
+      b.classList.toggle('border-warm-200', !active)
+      b.classList.toggle('bg-white', !active)
+      b.classList.toggle('text-warm-600', !active)
+      b.classList.toggle('dark:border-warm-800', !active)
+      b.classList.toggle('dark:bg-dark-surface', !active)
+      b.classList.toggle('dark:text-warm-300', !active)
+    })
+
+    items.forEach((item) => {
+      const show = cat === 'all' || item.getAttribute('data-post-category') === cat
+      item.style.display = show ? '' : 'none'
+    })
+  }
+
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => select(btn as HTMLElement)),
+  )
+
+  // Post category badges click -> same filter
+  const firstMatch = (cat: string) =>
+    buttons.find((b) => b.getAttribute('data-cat-filter') === cat)
+
+  Array.from(document.querySelectorAll('[data-badge-cat]')).forEach((badge) =>
+    badge.addEventListener('click', () => {
+      const cat = badge.getAttribute('data-badge-cat')
+      const target = firstMatch(cat!) || buttons[0]
+      select(target)
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }),
+  )
+</script>

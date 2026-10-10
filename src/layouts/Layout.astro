@@ -108,7 +108,7 @@ const schema = [
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
   </head>
   <body
     class="font-sans antialiased bg-warm-50 dark:bg-dark-bg text-warm-900 dark:text-warm-100"

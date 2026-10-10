@@ -15,7 +15,9 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   dateStyle: 'medium',
 })
 
-const categories = [...new Set(posts.map((p) => p.data.category))].sort()
+const categories = [
+  ...new Set(posts.map((p: BlogPost) => p.data.category)),
+].sort()
 
 // Group posts by year
 const postsByYear = sortedPosts.reduce(
@@ -174,8 +176,12 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
 </Layout>
 
 <script>
-  const buttons = Array.from(document.querySelectorAll('[data-cat-filter]'))
-  const items = Array.from(document.querySelectorAll('[data-post-category]'))
+  const buttons = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-cat-filter]'),
+  )
+  const items = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-post-category]'),
+  )
 
   const select = (btn: HTMLElement) => {
     const cat = btn.getAttribute('data-cat-filter')
@@ -213,12 +219,13 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
   const firstMatch = (cat: string) =>
     buttons.find((b) => b.getAttribute('data-cat-filter') === cat)
 
-  Array.from(document.querySelectorAll('[data-badge-cat]')).forEach((badge) =>
-    badge.addEventListener('click', () => {
-      const cat = badge.getAttribute('data-badge-cat')
-      const target = firstMatch(cat!) || buttons[0]
-      select(target)
-      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }),
+  Array.from(document.querySelectorAll<HTMLElement>('[data-badge-cat]')).forEach(
+    (badge) =>
+      badge.addEventListener('click', () => {
+        const cat = badge.getAttribute('data-badge-cat')
+        const target = firstMatch(cat!) || buttons[0]
+        select(target)
+        target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      }),
   )
 </script>

@@ -3,9 +3,17 @@ import Layout from '~/layouts/Layout.astro'
 import BaseLayout from '~/components/BaseLayout.astro'
 import Footer from '~/components/Footer.astro'
 
+interface GearItem {
+  name: string
+  desc: string
+  slug?: string
+  img?: string
+  svg?: 'pc' | 'keyboard'
+}
+
 const getIconUrl = (slug: string) => `https://cdn.simpleicons.org/${slug}`
 
-const gearGroups = [
+const gearGroups: { label: string; items: GearItem[] }[] = [
   {
     label: 'Hardware',
     items: [
@@ -89,7 +97,7 @@ const gearGroups = [
                     )}
                     {!item.svg && (
                       <img
-                        src={item.img || getIconUrl(item.slug)}
+                        src={item.img || getIconUrl(item.slug || '')}
                         alt={item.name}
                         class="w-6 h-6 dark:invert dark:opacity-90"
                         loading="lazy"

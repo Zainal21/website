@@ -25,16 +25,6 @@ const companies = [
     tags: ['Laravel', 'MariaDB', 'DevOps'],
   },
   {
-    name: 'Platon (Part-time / Freelance)',
-    logo: '/company/platon.png',
-    role: 'Software & Platform Engineer',
-    period: 'Oct 2024 – Present',
-    location: 'South Jakarta, Indonesia',
-    description:
-      'Built a SaaS ads platform supporting 5+ client projects, improved application performance by up to 40%, and handled infrastructure and deployments.',
-    tags: ['Laravel', 'NextJS', 'DevOps', 'Fly.io'],
-  },
-  {
     name: 'Linkpos Digital Kreatif (Part-time / Freelance)',
     logo: '/company/linkpos-digital-kreatif.webp',
     role: 'Mobile Engineer',
@@ -43,6 +33,26 @@ const companies = [
     description:
       'Mobile engineering work focused on cross-platform application development.',
     tags: ['Flutter', 'Mobile', 'Laravel'],
+  },
+  {
+    name: 'Platon (Part-time / Freelance)',
+    logo: '/company/platon.png',
+    role: 'Software & Platform Engineer',
+    period: 'Oct 2024 – August 2026',
+    location: 'South Jakarta, Indonesia',
+    description:
+      'Built a SaaS ads platform supporting 5+ client projects, improved application performance by up to 40%, and handled infrastructure and deployments.',
+    tags: ['Laravel', 'NextJS', 'Fly.io'],
+  },
+  {
+    name: 'TreeAMS Pte Ltd (Part-time / Freelance)',
+    logo: '/company/treeams.webp',
+    role: 'Software Engineer',
+    period: 'Freelance',
+    location: 'Singapore',
+    description:
+      'Built a training management platform for tracking programs, trainers, trainees, and outlet-level progress.',
+    tags: ['React', 'TypeScript', 'Laravel'],
   },
   {
     name: 'TekenAja!',
@@ -105,12 +115,14 @@ const companies = [
             <div class="flex flex-col gap-4">
               <div class="flex flex-wrap items-start justify-between gap-2">
                 <div class="flex items-center gap-4">
-                  <img
-                    src={company.logo}
-                    alt={`${company.name} logo`}
-                    loading="lazy"
-                    class="h-12 w-auto max-w-28 object-contain rounded-md shrink-0 shadow-sm"
-                  />
+                  {company.logo && (
+                    <img
+                      src={company.logo}
+                      alt={`${company.name} logo`}
+                      loading="lazy"
+                      class="h-12 w-auto max-w-28 object-contain rounded-md shrink-0 shadow-sm"
+                    />
+                  )}
                   <div>
                     <h3 class="text-lg font-semibold text-warm-900 dark:text-warm-100">
                       {company.name}

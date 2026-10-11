@@ -5,7 +5,7 @@ import BaseLayout from '~/components/BaseLayout.astro'
 import Footer from '~/components/Footer.astro'
 import GithubIcon from '~/icons/GithubIcon.astro'
 
-const projectImages = import.meta.glob('~/assets/projects/*.png', {
+const projectImages = import.meta.glob('~/assets/projects/**/*.png', {
   eager: true,
   import: 'default',
 })
@@ -27,15 +27,35 @@ const projectTitles: Record<string, string> = {
   'treeams.png': 'TREEAMS',
 }
 
+// Folder name under assets/projects maps to the employer; order follows the Work page.
+const employers: Record<string, string> = {
+  oxycreative: 'OXY Creative Inc',
+  tekenaja: 'TekenAja!',
+  platon: 'Platon',
+  linkpos: 'Linkpos Digital Kreatif',
+  treeams: 'TreeAMS Pte Ltd (Freelance)',
+  cikajogja: 'CV. Cipta Karya Infotika (Cikajogja)',
+  school: 'Personal Projects',
+}
+
 const projects = Object.entries(projectImages)
   .map(([path, src]) => {
-    const filename = path.split('/').pop() ?? ''
+    const parts = path.split('/')
+    const filename = parts.pop() ?? ''
     return {
       title: projectTitles[filename] ?? filename.replace('.png', ''),
+      employer: parts.pop() ?? '',
       src: src as ImageMetadata,
     }
   })
   .sort((a, b) => a.title.localeCompare(b.title))
+
+const groups = Object.entries(employers)
+  .map(([key, label]) => ({
+    label,
+    projects: projects.filter((p) => p.employer === key),
+  }))
+  .filter((group) => group.projects.length > 0)
 ---
 
 <Layout title="What I Built | Muhamad Zainal Arifin">
@@ -47,36 +67,38 @@ const projects = Object.entries(projectImages)
         professional client work, check out my <a href="/work">Work</a> page.
       </p>
 
-      <h2>Project Previews</h2>
-      <p>
-        A selection of screenshots from projects I've designed, built, and
-        shipped.
-      </p>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 not-prose">
-        {
-          projects.map((project) => (
-            <figure class="ledger-hover-cell group overflow-hidden rounded-2xl border border-warm-200 bg-white dark:border-warm-800 dark:bg-dark-surface">
-              <div class="aspect-video overflow-hidden bg-warm-100 dark:bg-dark-elevated">
-                <Image
-                  src={project.src}
-                  alt={`${project.title} preview`}
-                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  widths={[480, 640, 960]}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <figcaption class="flex items-center justify-between px-4 py-3">
-                <span class="text-sm font-semibold text-warm-900 dark:text-warm-100">
-                  {project.title}
-                </span>
-                <span class="ledger-hover-arrow text-warm-400">→</span>
-              </figcaption>
-            </figure>
-          ))
-        }
-      </div>
+      {
+        groups.map((group) => (
+          <section class="not-prose">
+            <h3 class="mt-10 mb-4 text-lg font-semibold text-warm-900 dark:text-warm-100">
+              {group.label}
+            </h3>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {group.projects.map((project) => (
+                <figure class="ledger-hover-cell group overflow-hidden rounded-2xl border border-warm-200 bg-white dark:border-warm-800 dark:bg-dark-surface">
+                  <div class="aspect-video overflow-hidden bg-warm-100 dark:bg-dark-elevated">
+                    <Image
+                      src={project.src}
+                      alt={`${project.title} preview`}
+                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      widths={[480, 640, 960]}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption class="flex items-center justify-between px-4 py-3">
+                    <span class="text-sm font-semibold text-warm-900 dark:text-warm-100">
+                      {project.title}
+                    </span>
+                    <span class="ledger-hover-arrow text-warm-400">→</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        ))
+      }
 
       <h2>Open Source</h2>
       <p>

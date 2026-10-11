@@ -394,7 +394,7 @@ const labels = {
                   'text-sm leading-6 font-semibold',
                   'text-warm-700 dark:text-warm-300 hover:bg-warm-200 dark:hover:bg-warm-800/30',
                   'transition-all duration-200',
-                  currentPath === '/what-i-built' &&
+                  currentPath.startsWith('/what-i-built') &&
                     'bg-warm-900 hover:bg-warm-800 dark:bg-warm-100 dark:hover:bg-warm-200 text-white dark:text-warm-900',
                 )}
               >
@@ -425,7 +425,7 @@ const labels = {
                   'text-sm leading-6 font-semibold',
                   'text-warm-700 dark:text-warm-300 hover:bg-warm-200 dark:hover:bg-warm-800/30',
                   'transition-all duration-200',
-                  currentPath === '/what-i-use' &&
+                  currentPath.startsWith('/what-i-use') &&
                     'bg-warm-900 hover:bg-warm-800 dark:bg-warm-100 dark:hover:bg-warm-200 text-white dark:text-warm-900',
                 )}
               >

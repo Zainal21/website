@@ -1,0 +1,219 @@
+---
+title: 'Building an AI Engineering Team in Claude Code: An Orchestrator from Plan to Ship'
+description: 'A practical guide to wiring up plan → execute → test → review → bug hunt → bug report → fix with subagents, a slash command, and hooks.'
+published: 2026-11-06
+category: 'technology'
+image: '/assets/images/ai-team-pipeline.svg'
+---
+
+# Building an AI Engineering Team in Claude Code: An Orchestrator from Plan to Ship
+
+*A practical guide to wiring up plan → execute → test → review → bug hunt → bug report → fix with subagents, a slash command, and hooks.*
+
+Hello everyone! In this post I’m going to share some of the tools I use to ship code with AI agents, and show you how to put the same setup together yourself.
+
+**Most AI coding assistants are good at writing code and bad at doubting it. This pipeline is built to doubt.**
+
+Imagine typing a single line, `/ship Add rate limiting to the login endpoint`, and watching a team of AI agents work in sequence: drafting a plan, writing the code, running the tests, reviewing the diff, hunting for bugs, writing up what they find, fixing it, and stopping at a local commit that is ready for your review. This is not science fiction. Claude Code already ships with every building block you need. This post shows how to assemble them, and why each design decision was made.
+
+## The problem: one do-everything agent gets messy fast
+
+If a single agent plans, writes, tests, and reviews its own code, three classic problems appear:
+
+- **Bloated context.** The plan, the diffs, the test logs, and the bug discussions pile up in one conversation until answer quality drops.
+- **A biased reviewer.** The agent that wrote the code tends to approve its own work.
+- **No guardrails.** An agent that wants the tests to go green will sometimes edit, skip, or delete the tests themselves.
+
+The fix is the same as on a human team: split the roles, give each one only the access it needs, and add checks that cannot be talked out of failing.
+
+## Architecture: one orchestrator, six specialists
+
+| Stage | Who | Access | Output |
+| --- | --- | --- | --- |
+| Plan | `planner` | Read-only | Plan + testable acceptance criteria |
+| Execute | `coder` | Read, edit, bash | Code + new tests |
+| Test | Orchestrator | Runs the real test command | Pass/fail + log |
+| Review | `reviewer` | Read-only | JSON `approved` + list of issues |
+| Hunt bugs | `bug-hunter` | May write tests only | List of real bugs |
+| Bug report | `bug-reporter` | May write tests only | One bug report + a failing test |
+| Fix | `fixer` | Edits code, forbidden from editing tests | Minimal fix |
+
+The flow is **Plan → Execute → [Test → Review → Hunt → (if there are findings) Report → Fix]**, repeated for at most 3 rounds, then commit. If it is still failing after 3 rounds, a human steps in.
+
+## How it works
+
+![Pipeline flow: plan → execute → test → review → hunt → report → fix](/assets/images/ai-team-pipeline.svg)
+
+1. **Plan** — the `planner` writes a plan with testable acceptance criteria.
+2. **Execute** — the `coder` writes the code and new tests.
+3. **Test** — the orchestrator runs the real test command and records pass/fail.
+4. **Review** — the `reviewer` inspects the diff and returns JSON: `approved` plus issues.
+5. **Hunt** — if tests pass and review is approved, the `bug-hunter` looks for real bugs.
+6. **Report** — when findings exist, the `bug-reporter` writes one bug report plus a failing test.
+7. **Fix** — the `fixer` applies a minimal fix and may not touch test files.
+8. **Loop** — repeat test → review → hunt for at most 3 rounds, then commit locally.
+
+## Mapping the design to Claude Code features
+
+| Need | Claude Code feature |
+| --- | --- |
+| Specialists with their own role and access | **Subagents**: Markdown files in `.claude/agents/` |
+| An orchestrator triggered by one command | **Slash command** `/ship` in `.claude/commands/ship.md` |
+| Guardrails the model cannot break | **Hooks** in `.claude/settings.json` |
+| Project rules every agent reads | `CLAUDE.md` |
+| Narrow permissions | `permissions` allow/deny in `settings.json` |
+
+The key point: **a subagent works in its own context.** It only knows what the orchestrator sends it, and it returns a summary. That is what gives the reviewer genuinely fresh eyes.
+
+The orchestrator delegates to six specialists, and every tool call they make passes through hooks and permissions before it reaches your repo.
+
+## Step 1: Project layout
+
+```
+repo/
+  CLAUDE.md
+  .claude/
+    settings.json
+    agents/    planner.md  coder.md  reviewer.md  bug-hunter.md  bug-reporter.md  fixer.md
+    commands/  ship.md
+    hooks/     guard-bash.sh  guard-paths.sh  tests-before-stop.sh
+```
+
+`CLAUDE.md` holds the test command, code conventions, and workflow rules (for example: never commit to main, never push, never weaken a test). Every agent reads it.
+
+## Step 2: One subagent per role
+
+A subagent is a Markdown file with YAML frontmatter. Only `name` and `description` are required. Claude uses `description` to decide when to delegate, and the body below the frontmatter becomes the subagent’s system prompt. Here is `reviewer.md`:
+
+```
+---
+name: reviewer
+description: Strict read-only code reviewer. Use after implementation and after every fix.
+tools: Read, Grep, Glob, Bash
+model: opus
+---
+You are a strict reviewer with fresh eyes. You did not write this code.
+1. Run `git diff main...HEAD` (read-only inspection only).
+2. Check the diff against the plan: correctness, security, edge cases, missing tests.
+3. Reply with JSON only: approved (true/false) and a list of issues.
+```
+
+Two things to notice:
+
+- **`tools` enforces least privilege.** The planner is not given Edit or Write at all.
+- **`model` can differ per role.** Use a stronger model for planning and review, and a cheaper one for execution.
+
+Subagents are loaded when a session starts. If you add a file by hand, restart the session or use `/agents` so it is picked up right away.
+
+For roles that need tighter limits, a subagent can also carry its own hook in its frontmatter. Take `fixer`: it is forbidden from editing test files, so it cannot “fix” a bug by deleting the failing test.
+
+```
+hooks:
+  PreToolUse:
+    - matcher: "Edit|Write"
+      hooks:
+        - type: command
+          command: '"$CLAUDE_PROJECT_DIR"/.claude/hooks/guard-paths.sh deny-tests'
+```
+
+`bug-hunter` and `bug-reporter` get the opposite mode, `only-tests`: they may write test files but never touch source code.
+
+## Step 3: The orchestrator as a slash command
+
+The file `.claude/commands/ship.md` holds the state-machine instructions. Whatever you type after `/ship` replaces `$ARGUMENTS`. A note: custom commands have been merged into the skills concept. Files in `.claude/commands/` still work and still create the `/ship` command, and you can move it to `.claude/skills/ship/SKILL.md` if you need the extra features.
+
+```
+---
+description: Ship a task end-to-end with specialist subagents
+argument-hint: "[task description]"
+disable-model-invocation: true
+---
+You are the ORCHESTRATOR. You coordinate; you never write code yourself.
+Task: $ARGUMENTS
+
+3. VERIFY LOOP (max 3 rounds):
+   a. Run the real test command yourself with Bash.
+   b. Use the `reviewer` subagent with the plan.
+   c. Only if tests pass AND review is approved: use the `bug-hunter` subagent.
+   d. No findings? Leave the loop.
+   e. Otherwise use `bug-reporter` for ONE bug report, then `fixer`. Next round.
+4. Commit locally. NEVER push. Report branch, rounds, bugs, and risks.
+```
+
+Three golden rules in the orchestrator prompt:
+
+1. **It does not write code.** Every change goes through a subagent.
+2. **It runs the tests itself.** Results come from the real command, not from an agent’s claim.
+3. **Its rounds are capped.** When the limit is reached, it stops and reports instead of trying forever.
+
+Because subagents do not share context, the orchestrator is also required to pass each one everything it needs: the task, the plan, the test logs, and the findings.
+
+## Step 4: Guardrails with hooks
+
+Hooks are scripts that Claude Code runs at specific moments. A script receives the tool call as JSON on stdin. **Exit code 2 blocks the action** and sends the stderr message back to Claude, while exit 0 lets it through. On the `Stop` hook, exit code 2 makes Claude keep working, so check the `stop_hook_active` field to avoid an endless loop.
+
+| Hook | Event | What it does |
+| --- | --- | --- |
+| `guard-bash.sh` | PreToolUse (Bash) | Blocks `git push`, `git reset --hard`, `rm -rf`, `--no-verify`, and similar |
+| `guard-paths.sh` | PreToolUse (Edit/Write), set in subagent frontmatter | Hunter and reporter may only edit tests; fixer may not edit tests |
+| `tests-before-stop.sh` | Stop | On `agent/...` branches with uncommitted changes, refuses to stop while tests fail |
+
+The same rule drives both hooks: on PreToolUse exit 2 blocks the call, and on Stop it keeps Claude working until the tests pass.
+
+Global hooks are registered in `.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Bash",
+        "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard-bash.sh" } ] }
+    ],
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/tests-before-stop.sh", "timeout": 600 } ] }
+    ]
+  }
+}
+```
+
+The `permissions` section of the same file is the second layer. Allow the safe git and test commands, then deny `git push` and reading `.env` files. With two layers, the rule “the agent must not push” does not depend on the model’s obedience alone.
+
+## Step 5: Run it
+
+```
+cd your-repo
+chmod +x .claude/hooks/*.sh     # make sure jq is installed
+claude                          # start Claude Code, then check /agents
+/ship Add rate limiting to the /login endpoint
+```
+
+The orchestrator creates an `agent/...` branch, runs the pipeline, commits locally, and tells you the commands to push and open a PR. You remain the final gate.
+
+## Design principles that keep it reliable
+
+1. **Verify with real tools.** Pass or fail is decided by `pytest`, the linter, and the type checker, not by a model’s opinion.
+2. **Fresh context for the reviewer and bug hunter.** A reviewer who did not write the code is more honest.
+3. **Narrowest possible access.** Each role gets only the tools and paths it needs.
+4. **A round cap and an escalation path.** A stuck agent should stop and call a human, not burn tokens.
+5. **A human at the final gate.** Push, PR, merge, and deploy stay your decisions.
+
+## Limitations you should know about
+
+- **A prompt-based orchestrator is not fully deterministic.** The model can skip a step. Hooks reduce that risk, but for flows that must be strict (in CI, for example), consider an orchestrator written as a script that calls Claude one stage at a time, using the Agent SDK or Claude Code’s non-interactive mode.
+- **Cost goes up.** More roles mean more model calls. Use cheaper models for routine roles and cap the number of rounds.
+- **Hooks and permissions are not a sandbox.** For unattended runs, use a container or an isolated clone.
+- **The pipeline is only as good as your test suite.** Without good tests, “green” does not mean correct.
+- **Feature syntax can change.** Always check the Claude Code documentation for subagents, slash commands, and hooks.
+
+## Start small
+
+1. Begin with `planner`, `coder`, the real test run, and the Stop hook.
+2. Add `reviewer` with JSON output.
+3. Add `bug-hunter`, `bug-reporter`, and `fixer`, together with the path-restricting hooks.
+4. Finally, move the stable flow into CI and track a few metrics: the share of tasks that pass on the first attempt, the average number of fix rounds, and how often a human rejects the PR.
+
+A pipeline like this does not replace engineers. It takes over the most repetitive part, which is writing, testing, and fixing, so you can focus on the decisions that truly need human judgment.
+
+**Pick one small ticket, run `/ship` on it, and see what the reviewer catches that you would have missed.**
+
+Thank you for reading! If you try this setup, I would love to hear how it goes. Happy shipping!
